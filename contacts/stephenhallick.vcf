@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Hallick;Stephen;;;
+FN:Stephen Hallick
+ORG:Stier Supply Company
+TITLE:Field Manager
+TEL;TYPE=CELL,WORK:+18436858398
+EMAIL;TYPE=WORK:stephen.hallick@stiersupply.com
+URL:https://www.stiersupply.com/
+ADR;TYPE=WORK:;;324 Cameron Circle, Suite D;Myrtle Beach;SC;29579;USA
+END:VCARD
