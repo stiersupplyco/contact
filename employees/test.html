@@ -31,12 +31,6 @@
 <meta property="og:type" content="website">
 
 
-<!-- Font Awesome -->
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-
 <!-- Structured Contact Metadata -->
 
 <script type="application/ld+json">
@@ -64,17 +58,23 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </script>
 
 
+
 <style>
+
 
 :root{
 
 --blue:#0054A6;
 --blue-light:#00AEEF;
+
 --text:#222;
+
 --muted:#666;
---card:#ffffff;
+
+--card:rgba(255,255,255,.78);
 
 }
+
 
 
 *{
@@ -84,9 +84,19 @@ box-sizing:border-box;
 }
 
 
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+
+
 body{
 
 font-family:
+
 Inter,
 -apple-system,
 BlinkMacSystemFont,
@@ -96,24 +106,33 @@ Helvetica,
 Arial,
 sans-serif;
 
+
 background:
+
 linear-gradient(
 135deg,
 #f5f7fa,
-#e8eef5
+#dfe8f2
 );
+
 
 color:var(--text);
 
+
 min-height:100vh;
+
 
 margin:0;
 
+
 padding:20px;
+
 
 display:flex;
 
+
 align-items:center;
+
 
 justify-content:center;
 
@@ -121,35 +140,65 @@ justify-content:center;
 
 
 
-/* Main Card */
+/* Glass Card */
 
 .card{
 
+
 width:100%;
+
 
 max-width:420px;
 
+
+
 background:var(--card);
 
-border-radius:22px;
+
+
+backdrop-filter:blur(14px);
+
+-webkit-backdrop-filter:blur(14px);
+
+
+
+border-radius:24px;
+
+
 
 padding:25px 22px;
 
+
+
 text-align:center;
 
-border:1px solid rgba(0,0,0,.08);
+
+
+border:
+
+1px solid rgba(255,255,255,.45);
+
+
 
 box-shadow:
 
-0 15px 35px rgba(0,0,0,.15);
 
-animation:fadeIn .45s ease;
+0 20px 45px rgba(0,0,0,.15);
+
+
+
+animation:
+
+fadeIn .45s ease;
+
 
 }
 
 
 
+
 @keyframes fadeIn{
+
 
 from{
 
@@ -159,6 +208,7 @@ transform:translateY(15px);
 
 }
 
+
 to{
 
 opacity:1;
@@ -166,6 +216,7 @@ opacity:1;
 transform:none;
 
 }
+
 
 }
 
@@ -175,17 +226,24 @@ transform:none;
 
 .logo{
 
+
 width:130px;
+
 
 max-width:40vw;
 
+
 margin-bottom:12px;
+
+
 
 filter:
 
 drop-shadow(
-0 6px 10px rgba(0,0,0,.18)
+0 6px 10px rgba(0,0,0,.22)
 );
+
+
 
 }
 
@@ -195,9 +253,13 @@ drop-shadow(
 
 .company-title{
 
+
 font-size:21px;
 
+
 font-weight:700;
+
+
 
 background:
 
@@ -207,25 +269,35 @@ var(--blue),
 var(--blue-light)
 );
 
+
+
 -webkit-background-clip:text;
+
 
 -webkit-text-fill-color:transparent;
 
+
+
 margin-bottom:8px;
+
 
 }
 
 
 
-/* Name */
+/* Text */
 
 h1{
 
+
 font-size:28px;
+
 
 margin:5px 0;
 
+
 font-weight:700;
+
 
 }
 
@@ -233,29 +305,40 @@ font-weight:700;
 
 h2{
 
+
 font-size:16px;
+
 
 font-weight:500;
 
+
 color:var(--muted);
 
+
 margin:0 0 15px;
+
 
 }
 
 
 
-/* Save Contact Button */
+/* Save Button */
 
 .save-button{
 
+
 display:flex;
+
 
 align-items:center;
 
+
 justify-content:center;
 
+
 gap:10px;
+
+
 
 background:
 
@@ -265,103 +348,177 @@ var(--blue),
 #0077cc
 );
 
+
+
 color:white;
+
+
 
 text-decoration:none;
 
+
+
 padding:15px;
+
+
 
 border-radius:14px;
 
+
+
 font-size:18px;
 
+
+
 font-weight:700;
+
+
 
 box-shadow:
 
 0 8px 20px rgba(0,84,166,.35);
+
+
 
 transition:
 
 transform .2s ease,
 box-shadow .2s ease;
 
+
 }
+
 
 
 .save-button:hover,
 
-.save-button:active{
+.save-button:focus-visible{
+
 
 transform:translateY(-2px);
+
+
 
 box-shadow:
 
 0 12px 25px rgba(0,84,166,.45);
 
-}
-
-
-.save-button i{
-
-flex-shrink:0;
 
 }
 
 
 
-/* Contact Information */
+.save-button:active{
+
+
+transform:scale(.98);
+
+}
+
+
+
+.save-button svg{
+
+
+width:20px;
+
+height:20px;
+
+flex:none;
+
+}
+
+
+
+/* Contact Info */
+
 
 .info{
 
+
 font-size:14px;
+
 
 line-height:1.25;
 
+
 margin-top:18px;
 
+
 }
+
 
 
 .info-row{
 
+
 display:flex;
+
 
 align-items:center;
 
+
 justify-content:center;
+
+
 
 gap:8px;
 
+
+
 margin:2px 0;
+
+
 
 padding:3px 8px;
 
+
+
 min-height:28px;
 
+
+}
+
+
+
+
+.info-row svg{
+
+
+width:16px;
+
+
+height:16px;
+
+
+
+flex:none;
+
+
+
+fill:var(--blue);
+
+
+
 }
 
 
-.info-row i{
-
-width:18px;
-
-font-size:14px;
-
-color:var(--blue);
-
-}
 
 
 .info-row a{
 
+
 color:var(--blue);
+
 
 text-decoration:none;
 
+
 line-height:1.2;
 
+
 overflow-wrap:anywhere;
+
 
 }
 
@@ -369,48 +526,111 @@ overflow-wrap:anywhere;
 
 /* Address */
 
+
 .address{
+
 
 font-size:13px;
 
+
 line-height:1.25;
+
 
 align-items:flex-start;
 
+
 }
+
+
+
+/* Keyboard accessibility */
+
+
+a:focus-visible{
+
+
+outline:
+
+3px solid #00AEEF;
+
+
+outline-offset:3px;
+
+
+border-radius:8px;
+
+
+}
+
 
 
 
 /* Mobile */
 
+
 @media(max-width:400px){
+
 
 .card{
 
+
 padding:20px 16px;
 
+
 }
+
 
 
 .logo{
 
+
 width:110px;
 
+
 }
+
 
 
 h1{
 
+
 font-size:24px;
 
+
 }
+
 
 
 .save-button{
 
+
 font-size:16px;
 
+
 }
+
+
+}
+
+
+
+
+/* Reduced motion */
+
+
+@media(prefers-reduced-motion:reduce){
+
+
+*{
+
+
+animation:none !important;
+
+transition:none !important;
+
+
+}
+
 
 }
 
@@ -418,21 +638,26 @@ font-size:16px;
 
 /* Dark Mode */
 
+
 @media(prefers-color-scheme:dark){
 
 
 :root{
 
+
 --text:#f5f5f5;
 
 --muted:#bdbdbd;
 
---card:#1b1e22;
+--card:rgba(30,30,30,.78);
+
 
 }
 
 
+
 body{
+
 
 background:
 
@@ -442,34 +667,53 @@ linear-gradient(
 #202833
 );
 
+
 }
+
 
 
 .card{
 
-background:#1b1e22;
 
 border-color:
 
-rgba(255,255,255,.08);
+rgba(255,255,255,.12);
+
+
 
 box-shadow:
 
-0 15px 35px rgba(0,0,0,.6);
+0 20px 45px rgba(0,0,0,.65);
+
+
 
 }
 
 
-.info-row i,
+
+.info-row svg{
+
+
+fill:#70b8ff;
+
+
+}
+
+
 
 .info-row a{
 
+
 color:#70b8ff;
 
+
 }
 
 
+
 }
+
+
 
 </style>
 
@@ -477,10 +721,11 @@ color:#70b8ff;
 </head>
 
 
+
 <body>
 
 
-<main class="card">
+<main class="card" aria-label="Digital business card">
 
 
 <div class="company-title">
@@ -497,7 +742,7 @@ class="logo"
 
 src="../images/logo.png"
 
-alt="Stier Supply Company Logo">
+alt="Stier Supply Company logo">
 
 
 
@@ -523,10 +768,17 @@ class="save-button"
 
 href="../contacts/stephenhallick.vcf"
 
-aria-label="Save Stephen Hallick contact information">
+aria-label="Save Stephen Hallick contact card">
 
 
-<i class="fa-solid fa-user-plus"></i>
+<!-- Contact Icon -->
+
+<svg viewBox="0 0 24 24" aria-hidden="true">
+
+<path d="M19 2H8c-1.1 0-2 .9-2 2v3H5c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2v-3h1c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-3 16H5V9h11v9zm3-5h-1v-4c0-1.1-.9-2-2-2H8V4h11v9z"/>
+
+</svg>
+
 
 <span>Save Contact</span>
 
@@ -535,18 +787,26 @@ aria-label="Save Stephen Hallick contact information">
 
 
 
-<section class="info">
+
+<section class="info" aria-label="Contact information">
 
 
 <div class="info-row">
 
-<i class="fa-solid fa-phone"></i>
 
-<a href="tel:+18436858398">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+
+<path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+
+</svg>
+
+
+<a href="tel:+18436858398" aria-label="Call Stephen Hallick">
 
 843-685-8398
 
 </a>
+
 
 </div>
 
@@ -554,7 +814,13 @@ aria-label="Save Stephen Hallick contact information">
 
 <div class="info-row">
 
-<i class="fa-solid fa-envelope"></i>
+
+<svg viewBox="0 0 24 24" aria-hidden="true">
+
+<path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+
+</svg>
+
 
 <a href="mailto:stephen.hallick@stiersupply.com">
 
@@ -562,19 +828,28 @@ stephen.hallick@stiersupply.com
 
 </a>
 
+
 </div>
+
 
 
 
 <div class="info-row">
 
-<i class="fa-solid fa-globe"></i>
 
-<a href="https://www.stiersupply.com/" target="_blank">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+
+<path d="M12 2a10 10 0 100 20 10 10 0 000-20zm6.9 9h-3.1c-.1-1.2-.4-2.3-.8-3.3A8 8 0 0118.9 11zM12 4c.8 1.2 1.4 2.8 1.7 5h-3.4c.3-2.2.9-3.8 1.7-5zM9.9 11H5.1a8 8 0 013.1-5.3c-.5 1.3-1 3.3-1.3 5.3zm0 2c.3 2 .8 4 1.3 5.3A8 8 0 015.1 13h4.8zm2.1 7c-.8-1.2-1.4-2.8-1.7-5h3.4c-.3 2.2-.9 3.8-1.7 5zm2.1-7h4.8a8 8 0 01-3.1 5.3c.5-1.3 1-3.3 1.3-5.3z"/>
+
+</svg>
+
+
+<a href="https://www.stiersupply.com/" target="_blank" rel="noopener noreferrer">
 
 www.stiersupply.com
 
 </a>
+
 
 </div>
 
@@ -582,16 +857,26 @@ www.stiersupply.com
 
 <div class="info-row address">
 
-<i class="fa-solid fa-location-dot"></i>
+
+<svg viewBox="0 0 24 24" aria-hidden="true">
+
+<path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/>
+
+</svg>
+
 
 <a href="https://www.google.com/maps/search/?api=1&query=324+Cameron+Circle+Suite+D+Myrtle+Beach+SC+29579"
-target="_blank">
+target="_blank"
+rel="noopener noreferrer">
+
 
 324 Cameron Circle, Suite D<br>
 
 Myrtle Beach, SC
 
+
 </a>
+
 
 </div>
 
@@ -603,5 +888,6 @@ Myrtle Beach, SC
 
 
 </body>
+
 
 </html>
