@@ -36,7 +36,7 @@
 
 
 
-<!-- Icons -->
+<!-- Font Awesome -->
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -114,6 +114,7 @@ sans-serif;
 
 
 background:
+
 linear-gradient(
 135deg,
 #f5f7fa,
@@ -123,30 +124,38 @@ linear-gradient(
 
 color:var(--text);
 
+
 min-height:100vh;
 
+
 margin:0;
+
 
 padding:20px;
 
 
 display:flex;
 
+
 justify-content:center;
 
+
 align-items:center;
+
 
 }
 
 
 
-/* Main Card */
+/* Card */
 
 .card{
 
 width:100%;
 
+
 max-width:420px;
+
 
 background:var(--card);
 
@@ -160,7 +169,10 @@ padding:25px 22px;
 text-align:center;
 
 
-border:1px solid rgba(0,0,0,.08);
+border:
+
+1px solid rgba(0,0,0,.08);
+
 
 
 box-shadow:
@@ -168,13 +180,18 @@ box-shadow:
 0 15px 35px rgba(0,0,0,.15);
 
 
-animation:fadeIn .45s ease;
+
+animation:
+
+fadeIn .45s ease;
+
 
 }
 
 
 
 @keyframes fadeIn{
+
 
 from{
 
@@ -184,6 +201,7 @@ transform:translateY(15px);
 
 }
 
+
 to{
 
 opacity:1;
@@ -191,6 +209,7 @@ opacity:1;
 transform:none;
 
 }
+
 
 }
 
@@ -200,11 +219,15 @@ transform:none;
 
 .logo{
 
+
 width:130px;
+
 
 max-width:40vw;
 
+
 margin-bottom:12px;
+
 
 
 filter:
@@ -213,17 +236,22 @@ drop-shadow(
 0 6px 10px rgba(0,0,0,.18)
 );
 
+
+
 }
 
 
 
-/* Company */
+/* Company Name */
 
 .company-title{
 
+
 font-size:21px;
 
+
 font-weight:700;
+
 
 
 background:
@@ -235,14 +263,19 @@ var(--blue-light)
 );
 
 
+
 -webkit-background-clip:text;
+
 
 -webkit-text-fill-color:transparent;
 
 
+
 margin-bottom:8px;
 
+
 }
+
 
 
 
@@ -250,11 +283,15 @@ margin-bottom:8px;
 
 h1{
 
+
 font-size:28px;
+
 
 margin:5px 0;
 
+
 font-weight:700;
+
 
 }
 
@@ -262,33 +299,44 @@ font-weight:700;
 
 h2{
 
+
 font-size:16px;
+
 
 font-weight:500;
 
+
 color:var(--muted);
 
+
 margin:0 0 15px;
+
 
 }
 
 
 
-/* Save button */
+
+/* Save Contact Button */
 
 .save-button{
 
 
 display:flex;
 
+
 align-items:center;
 
+
 justify-content:center;
+
 
 gap:10px;
 
 
+
 background:
+
 
 linear-gradient(
 135deg,
@@ -297,30 +345,40 @@ var(--blue),
 );
 
 
+
 color:white;
+
 
 
 text-decoration:none;
 
 
+
 padding:15px;
+
 
 
 border-radius:14px;
 
 
+
 font-size:18px;
+
 
 
 font-weight:700;
 
 
+
 box-shadow:
+
 
 0 8px 20px rgba(0,84,166,.35);
 
 
+
 transition:.25s;
+
 
 
 }
@@ -332,56 +390,40 @@ transition:.25s;
 .save-button:active{
 
 
-transform:translateY(-2px) scale(1.02);
+transform:
+
+translateY(-2px) scale(1.02);
+
 
 
 box-shadow:
 
+
 0 12px 25px rgba(0,84,166,.45);
 
 
-}
-
-
-
-/* NFC Hint */
-
-.nfc-hint{
-
-
-font-size:12px;
-
-color:var(--muted);
-
-
-margin-top:-5px;
-
-margin-bottom:12px;
-
 
 }
 
 
 
-.nfc-hint i{
-
-margin-right:5px;
-
-}
-
-
-
-/* Information */
+/* Contact Info */
 
 .info{
 
 
 font-size:14px;
 
+
 line-height:1.45;
 
 
+
+margin-top:12px;
+
+
 }
+
 
 
 
@@ -390,26 +432,35 @@ line-height:1.45;
 
 display:flex;
 
+
 align-items:flex-start;
+
 
 justify-content:center;
 
+
 gap:10px;
+
 
 
 margin:8px 0;
 
 
+
 padding:7px;
+
 
 
 border-radius:10px;
 
 
+
 transition:.2s;
 
 
+
 }
+
 
 
 
@@ -418,10 +469,13 @@ transition:.2s;
 .info-row:active{
 
 
-background:rgba(0,84,166,.08);
+background:
+
+rgba(0,84,166,.08);
 
 
 }
+
 
 
 
@@ -430,9 +484,12 @@ background:rgba(0,84,166,.08);
 
 width:18px;
 
+
 margin-top:3px;
 
+
 color:var(--blue);
+
 
 
 }
@@ -444,7 +501,10 @@ color:var(--blue);
 
 color:var(--blue);
 
+
+
 text-decoration:none;
+
 
 
 }
@@ -457,6 +517,7 @@ text-decoration:none;
 
 
 font-size:13px;
+
 
 line-height:1.35;
 
@@ -472,7 +533,9 @@ line-height:1.35;
 
 .card{
 
+
 padding:20px 16px;
+
 
 }
 
@@ -480,7 +543,9 @@ padding:20px 16px;
 
 .logo{
 
+
 width:110px;
+
 
 }
 
@@ -488,7 +553,9 @@ width:110px;
 
 h1{
 
+
 font-size:24px;
+
 
 }
 
@@ -496,7 +563,9 @@ font-size:24px;
 
 .save-button{
 
+
 font-size:16px;
+
 
 }
 
@@ -510,13 +579,18 @@ font-size:16px;
 @media(prefers-color-scheme:dark){
 
 
+
 :root{
+
 
 --text:#f5f5f5;
 
+
 --muted:#bdbdbd;
 
+
 --card:#1b1e22;
+
 
 }
 
@@ -524,13 +598,17 @@ font-size:16px;
 
 body{
 
+
 background:
+
 
 linear-gradient(
 135deg,
 #101214,
 #202833
 );
+
+
 
 }
 
@@ -542,17 +620,23 @@ linear-gradient(
 background:#1b1e22;
 
 
+
 border-color:
+
 
 rgba(255,255,255,.08);
 
 
+
 box-shadow:
+
 
 0 15px 35px rgba(0,0,0,.6);
 
 
+
 }
+
 
 
 
@@ -562,6 +646,7 @@ box-shadow:
 
 
 background:
+
 
 rgba(255,255,255,.08);
 
@@ -580,13 +665,6 @@ color:#70b8ff;
 
 }
 
-
-
-.nfc-hint{
-
-color:#aaa;
-
-}
 
 
 }
@@ -632,11 +710,13 @@ Stephen Hallick
 </h1>
 
 
+
 <h2>
 
 Field Manager
 
 </h2>
+
 
 
 
@@ -651,20 +731,11 @@ aria-label="Save Stephen Hallick contact information">
 
 <i class="fa-solid fa-user-plus"></i>
 
+
 Save Contact
 
 
 </a>
-
-
-
-<div class="nfc-hint">
-
-<i class="fa-solid fa-mobile-screen-button"></i>
-
-Tap to save contact
-
-</div>
 
 
 
@@ -675,45 +746,63 @@ Tap to save contact
 
 <div class="info-row">
 
+
 <i class="fa-solid fa-phone"></i>
+
 
 <a href="tel:+18436858398">
 
+
 843-685-8398
 
+
 </a>
+
 
 </div>
 
 
 
 
+
 <div class="info-row">
+
 
 <i class="fa-solid fa-envelope"></i>
 
+
 <a href="mailto:stephen.hallick@stiersupply.com">
+
 
 stephen.hallick@stiersupply.com
 
+
 </a>
 
+
 </div>
+
 
 
 
 
 <div class="info-row">
 
+
 <i class="fa-solid fa-globe"></i>
+
 
 <a href="https://www.stiersupply.com/" target="_blank">
 
+
 www.stiersupply.com
+
 
 </a>
 
+
 </div>
+
 
 
 
@@ -722,6 +811,7 @@ www.stiersupply.com
 
 
 <i class="fa-solid fa-location-dot"></i>
+
 
 
 <a
@@ -733,18 +823,21 @@ target="_blank">
 
 324 Cameron Circle, Suite D<br>
 
+
 Myrtle Beach, SC
 
 
+
 </a>
+
 
 
 </div>
 
 
 
-
 </section>
+
 
 
 </main>
