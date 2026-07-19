@@ -4,9 +4,12 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>Stephen Hallick | Stier Supply Company</title>
+
 
 <meta name="description" content="Stephen Hallick - Field Manager at Stier Supply Company">
 
@@ -14,26 +17,36 @@
 
 
 <!-- Favicons -->
-<link rel="icon" type="image/png" sizes="32x32" href="../images/logo.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../images/logo.png">
-<link rel="apple-touch-icon" href="../images/logo.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../images/logo.png?v=3">
+<link rel="icon" type="image/png" sizes="16x16" href="../images/logo.png?v=3">
+<link rel="apple-touch-icon" href="../images/logo.png?v=3">
 
 
 <!-- Open Graph -->
+
 <meta property="og:title" content="Stephen Hallick | Stier Supply Company">
+
 <meta property="og:description" content="Field Manager">
+
 <meta property="og:image" content="https://stiersupplyco.github.io/contact/images/logo.png">
+
 <meta property="og:url" content="https://stiersupplyco.github.io/contact/employees/stephenhallick.html">
+
 <meta property="og:type" content="website">
 
 
-<!-- Font Awesome Icons -->
+
+<!-- Icons -->
+
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 
+
 <!-- Structured Contact Metadata -->
+
 <script type="application/ld+json">
+
 {
  "@context":"https://schema.org",
  "@type":"Person",
@@ -55,20 +68,42 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
    "addressCountry":"US"
  }
 }
+
 </script>
+
 
 
 <style>
 
 
-*{
-box-sizing:border-box;
+:root{
+
+--blue:#0054A6;
+
+--blue-light:#00AEEF;
+
+--text:#222;
+
+--muted:#666;
+
+--card:#ffffff;
+
 }
+
+
+
+*{
+
+box-sizing:border-box;
+
+}
+
 
 
 body{
 
 font-family:
+Inter,
 -apple-system,
 BlinkMacSystemFont,
 "Segoe UI",
@@ -77,59 +112,69 @@ Helvetica,
 Arial,
 sans-serif;
 
-background:#f5f7fa;
 
-color:#222;
+background:
+linear-gradient(
+135deg,
+#f5f7fa,
+#e8eef5
+);
+
+
+color:var(--text);
 
 min-height:100vh;
 
-display:flex;
+margin:0;
 
-align-items:center;
+padding:20px;
+
+
+display:flex;
 
 justify-content:center;
 
-padding:15px;
-
-margin:0;
-
-transition:
-background .3s,
-color .3s;
+align-items:center;
 
 }
 
 
 
-/* NFC optimized card */
+/* Main Card */
 
 .card{
-
-background:white;
 
 width:100%;
 
 max-width:420px;
 
-padding:22px 20px;
+background:var(--card);
 
-border-radius:20px;
+
+border-radius:22px;
+
+
+padding:25px 22px;
+
 
 text-align:center;
 
+
+border:1px solid rgba(0,0,0,.08);
+
+
 box-shadow:
-0 10px 30px rgba(0,0,0,.15);
 
-animation:
-fadeUp .45s ease;
+0 15px 35px rgba(0,0,0,.15);
 
-transition:.3s;
+
+animation:fadeIn .45s ease;
 
 }
 
 
 
-@keyframes fadeUp{
+@keyframes fadeIn{
 
 from{
 
@@ -143,7 +188,7 @@ to{
 
 opacity:1;
 
-transform:translateY(0);
+transform:none;
 
 }
 
@@ -155,11 +200,18 @@ transform:translateY(0);
 
 .logo{
 
-width:125px;
+width:130px;
 
-max-width:35vw;
+max-width:40vw;
 
-margin-bottom:8px;
+margin-bottom:12px;
+
+
+filter:
+
+drop-shadow(
+0 6px 10px rgba(0,0,0,.18)
+);
 
 }
 
@@ -169,20 +221,24 @@ margin-bottom:8px;
 
 .company-title{
 
-font-size:20px;
+font-size:21px;
 
 font-weight:700;
 
+
 background:
+
 linear-gradient(
 90deg,
-#0054A6,
-#00AEEF
+var(--blue),
+var(--blue-light)
 );
+
 
 -webkit-background-clip:text;
 
 -webkit-text-fill-color:transparent;
+
 
 margin-bottom:8px;
 
@@ -194,9 +250,9 @@ margin-bottom:8px;
 
 h1{
 
-font-size:26px;
+font-size:28px;
 
-margin:3px 0;
+margin:5px 0;
 
 font-weight:700;
 
@@ -210,17 +266,18 @@ font-size:16px;
 
 font-weight:500;
 
-color:#666;
+color:var(--muted);
 
-margin:0 0 12px;
+margin:0 0 15px;
 
 }
 
 
 
-/* Add Contact */
+/* Save button */
 
 .save-button{
+
 
 display:flex;
 
@@ -228,66 +285,108 @@ align-items:center;
 
 justify-content:center;
 
-gap:8px;
+gap:10px;
+
 
 background:
+
 linear-gradient(
 135deg,
-#0054A6,
+var(--blue),
 #0077cc
 );
 
+
 color:white;
+
 
 text-decoration:none;
 
-padding:14px;
 
-border-radius:12px;
+padding:15px;
 
-font-size:17px;
+
+border-radius:14px;
+
+
+font-size:18px;
+
 
 font-weight:700;
 
-margin:12px 0;
 
 box-shadow:
-0 8px 18px rgba(0,84,166,.35);
+
+0 8px 20px rgba(0,84,166,.35);
+
 
 transition:.25s;
 
+
 }
 
 
 
-.save-button:hover{
+.save-button:hover,
 
-transform:translateY(-2px);
+.save-button:active{
+
+
+transform:translateY(-2px) scale(1.02);
+
 
 box-shadow:
+
 0 12px 25px rgba(0,84,166,.45);
+
 
 }
 
 
 
-/* Contact information */
+/* NFC Hint */
+
+.nfc-hint{
+
+
+font-size:12px;
+
+color:var(--muted);
+
+
+margin-top:-5px;
+
+margin-bottom:12px;
+
+
+}
+
+
+
+.nfc-hint i{
+
+margin-right:5px;
+
+}
+
+
+
+/* Information */
 
 .info{
 
+
 font-size:14px;
 
-line-height:1.4;
+line-height:1.45;
 
-margin-top:8px;
 
 }
 
 
 
-.info p{
+.info-row{
 
-margin:7px 0;
 
 display:flex;
 
@@ -295,49 +394,72 @@ align-items:flex-start;
 
 justify-content:center;
 
-gap:9px;
+gap:10px;
+
+
+margin:8px 0;
+
+
+padding:7px;
+
+
+border-radius:10px;
+
+
+transition:.2s;
+
 
 }
 
 
 
-.info i{
+.info-row:hover,
+
+.info-row:active{
+
+
+background:rgba(0,84,166,.08);
+
+
+}
+
+
+
+.info-row i{
+
 
 width:18px;
 
 margin-top:3px;
 
-color:#0054A6;
+color:var(--blue);
+
 
 }
 
 
 
-.info a{
+.info-row a{
 
-color:#0054A6;
+
+color:var(--blue);
 
 text-decoration:none;
 
-}
-
-
-
-.info a:hover{
-
-text-decoration:underline;
 
 }
 
 
 
-/* Compact address */
+/* Address */
 
 .address{
+
 
 font-size:13px;
 
 line-height:1.35;
+
 
 }
 
@@ -350,9 +472,10 @@ line-height:1.35;
 
 .card{
 
-padding:18px 15px;
+padding:20px 16px;
 
 }
+
 
 
 .logo{
@@ -362,12 +485,6 @@ width:110px;
 }
 
 
-.company-title{
-
-font-size:19px;
-
-}
-
 
 h1{
 
@@ -376,11 +493,10 @@ font-size:24px;
 }
 
 
+
 .save-button{
 
 font-size:16px;
-
-padding:13px;
 
 }
 
@@ -394,11 +510,27 @@ padding:13px;
 @media(prefers-color-scheme:dark){
 
 
+:root{
+
+--text:#f5f5f5;
+
+--muted:#bdbdbd;
+
+--card:#1b1e22;
+
+}
+
+
+
 body{
 
-background:#101214;
+background:
 
-color:#f5f5f5;
+linear-gradient(
+135deg,
+#101214,
+#202833
+);
 
 }
 
@@ -406,49 +538,58 @@ color:#f5f5f5;
 
 .card{
 
+
 background:#1b1e22;
 
+
+border-color:
+
+rgba(255,255,255,.08);
+
+
 box-shadow:
-0 10px 30px rgba(0,0,0,.6);
+
+0 15px 35px rgba(0,0,0,.6);
+
 
 }
 
 
 
-h2{
+.info-row:hover,
 
-color:#bdbdbd;
+.info-row:active{
+
+
+background:
+
+rgba(255,255,255,.08);
+
 
 }
 
 
 
-.info i{
+.info-row i,
+
+.info-row a{
+
 
 color:#70b8ff;
 
-}
-
-
-
-.info a{
-
-color:#70b8ff;
 
 }
 
 
 
-.save-button{
+.nfc-hint{
 
-box-shadow:
-0 8px 20px rgba(0,120,255,.35);
-
-}
-
+color:#aaa;
 
 }
 
+
+}
 
 
 </style>
@@ -457,10 +598,13 @@ box-shadow:
 </head>
 
 
+
 <body>
 
 
-<div class="card">
+
+<main class="card">
+
 
 
 <div class="company-title">
@@ -470,9 +614,13 @@ Stier Supply Company
 </div>
 
 
+
 <img
+
 class="logo"
+
 src="../images/logo.png"
+
 alt="Stier Supply Company Logo">
 
 
@@ -492,21 +640,40 @@ Field Manager
 
 
 
-<a class="save-button"
-href="../contacts/stephenhallick.vcf">
+<a
 
-<i class="fa-solid fa-address-card"></i>
+class="save-button"
 
-Add Contact
+href="../contacts/stephenhallick.vcf"
+
+aria-label="Save Stephen Hallick contact information">
+
+
+<i class="fa-solid fa-user-plus"></i>
+
+Save Contact
+
 
 </a>
 
 
 
-<div class="info">
+<div class="nfc-hint">
+
+<i class="fa-solid fa-mobile-screen-button"></i>
+
+Tap to save contact
+
+</div>
 
 
-<p>
+
+
+<section class="info">
+
+
+
+<div class="info-row">
 
 <i class="fa-solid fa-phone"></i>
 
@@ -516,11 +683,12 @@ Add Contact
 
 </a>
 
-</p>
+</div>
 
 
 
-<p>
+
+<div class="info-row">
 
 <i class="fa-solid fa-envelope"></i>
 
@@ -530,11 +698,12 @@ stephen.hallick@stiersupply.com
 
 </a>
 
-</p>
+</div>
 
 
 
-<p>
+
+<div class="info-row">
 
 <i class="fa-solid fa-globe"></i>
 
@@ -544,31 +713,42 @@ www.stiersupply.com
 
 </a>
 
-</p>
+</div>
 
 
 
-<p class="address">
+
+<div class="info-row address">
+
 
 <i class="fa-solid fa-location-dot"></i>
 
-<a href="https://www.google.com/maps/search/?api=1&query=324+Cameron+Circle+Suite+D+Myrtle+Beach+SC+29579"
+
+<a
+
+href="https://www.google.com/maps/search/?api=1&query=324+Cameron+Circle+Suite+D+Myrtle+Beach+SC+29579"
+
 target="_blank">
+
 
 324 Cameron Circle, Suite D<br>
 
 Myrtle Beach, SC
 
+
 </a>
 
-</p>
-
-
 
 </div>
 
 
-</div>
+
+
+</section>
+
+
+</main>
+
 
 
 </body>
