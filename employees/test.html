@@ -7,8 +7,13 @@
 
 <title>Stephen Hallick | Stier Supply Company</title>
 
+<meta name="description" content="Stephen Hallick - Field Manager at Stier Supply Company">
+
+<meta name="theme-color" content="#0054A6">
+
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="../images/logo.png">
+
 
 <!-- Open Graph -->
 <meta property="og:title" content="Stephen Hallick | Stier Supply Company">
@@ -17,171 +22,524 @@
 <meta property="og:url" content="https://stiersupplyco.github.io/contact/employees/stephenhallick.html">
 <meta property="og:type" content="website">
 
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+<!-- Structured Contact Metadata -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Person",
+ "name":"Stephen Hallick",
+ "jobTitle":"Field Manager",
+ "worksFor":{
+   "@type":"Organization",
+   "name":"Stier Supply Company",
+   "url":"https://www.stiersupply.com/"
+ },
+ "telephone":"+18436858398",
+ "email":"stephen.hallick@stiersupply.com",
+ "address":{
+   "@type":"PostalAddress",
+   "streetAddress":"324 Cameron Circle Suite D",
+   "addressLocality":"Myrtle Beach",
+   "addressRegion":"SC",
+   "postalCode":"29579",
+   "addressCountry":"US"
+ }
+}
+</script>
+
+
 <style>
 
-body{
-font-family:Arial,sans-serif;
-background:#f5f5f5;
-color:#222;
-text-align:center;
-padding:40px;
-margin:0;
-transition:background .3s,color .3s;
+
+/* Global */
+
+*{
+box-sizing:border-box;
 }
+
+
+body{
+
+font-family:
+Inter,
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+Roboto,
+Helvetica,
+Arial,
+sans-serif;
+
+background:#f5f7fa;
+color:#222;
+
+min-height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:15px;
+
+margin:0;
+
+transition:
+background .3s,
+color .3s;
+
+}
+
+
+
+/* NFC optimized card
+   Designed to fit on one phone screen */
 
 .card{
+
 background:white;
-max-width:450px;
-margin:auto;
-padding:30px;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.2);
-transition:background .3s;
+
+width:100%;
+max-width:420px;
+
+padding:25px 22px;
+
+border-radius:20px;
+
+text-align:center;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.15);
+
+animation:
+fadeUp .45s ease;
+
+transition:.3s;
+
 }
+
+
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+
+
+/* Logo */
+
+.logo{
+
+width:130px;
+
+max-width:35vw;
+
+margin-bottom:10px;
+
+}
+
+
 
 .company-title{
-font-size:20px;
-font-weight:bold;
-margin-bottom:20px;
+
+font-size:21px;
+
+font-weight:700;
+
+background:
+linear-gradient(
+90deg,
+#0054A6,
+#00AEEF
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+margin-bottom:12px;
+
 }
 
-img{
-width:160px;
-margin-bottom:20px;
-}
+
 
 h1{
-margin:5px;
-font-size:26px;
+
+font-size:27px;
+
+margin:5px 0;
+
+font-weight:700;
+
 }
+
+
 
 h2{
-font-weight:normal;
-color:#555;
-margin-top:0;
-font-size:17px;
+
+font-size:16px;
+
+font-weight:500;
+
+color:#666;
+
+margin:0 0 15px;
+
 }
 
-a.button{
-display:block;
-background:#0054A6;
+
+
+/* Main Contact Button */
+
+.save-button{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:10px;
+
+
+background:
+linear-gradient(
+135deg,
+#0054A6,
+#0077cc
+);
+
+
 color:white;
+
 text-decoration:none;
+
 padding:15px;
-margin:20px 0;
-border-radius:8px;
+
+border-radius:12px;
+
 font-size:18px;
-font-weight:bold;
-transition:all .25s ease;
+
+font-weight:700;
+
+margin:15px 0;
+
+
+box-shadow:
+0 8px 20px rgba(0,84,166,.35);
+
+
+transition:.25s;
+
 }
 
-a.button:hover{
-background:#003b78;
+
+
+.save-button:hover{
+
 transform:translateY(-2px);
-box-shadow:0 6px 12px rgba(0,0,0,.25);
+
+box-shadow:
+0 12px 25px rgba(0,84,166,.45);
+
 }
+
+
+
+/* Information */
 
 .info{
-margin-top:20px;
-line-height:1.8;
-font-size:13px;
+
+font-size:14px;
+
+line-height:1.7;
+
+margin-top:10px;
+
 }
+
+
+
+.info p{
+
+margin:10px 0;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:8px;
+
+}
+
+
+
+.info i{
+
+width:18px;
+
+color:#0054A6;
+
+}
+
+
 
 .info a{
+
 color:#0054A6;
+
 text-decoration:none;
-transition:color .2s;
+
 }
 
+
+
 .info a:hover{
-color:#003b78;
+
 text-decoration:underline;
+
 }
+
+
+
+/* Mobile */
+
+@media(max-width:400px){
+
+.card{
+
+padding:20px 15px;
+
+border-radius:16px;
+
+}
+
+
+.company-title{
+
+font-size:19px;
+
+}
+
+
+h1{
+
+font-size:24px;
+
+}
+
+
+.save-button{
+
+font-size:16px;
+
+padding:14px;
+
+}
+
+}
+
+
 
 /* Dark Mode */
 
-@media (prefers-color-scheme: dark){
+@media(prefers-color-scheme:dark){
+
 
 body{
-background:#121212;
-color:#f0f0f0;
+
+background:#101214;
+
+color:#f5f5f5;
+
 }
+
+
 
 .card{
-background:#1e1e1e;
-box-shadow:0 5px 15px rgba(0,0,0,.5);
+
+background:#1b1e22;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.6);
+
 }
+
+
 
 h2{
-color:#cfcfcf;
+
+color:#b8b8b8;
+
 }
+
+
+
+.info i{
+
+color:#5ba8ff;
+
+}
+
+
 
 .info a{
-color:#5ba8ff;
-}
 
-.info a:hover{
-color:#8bc3ff;
-}
+color:#70b8ff;
 
 }
+
+
+
+.save-button{
+
+box-shadow:
+0 8px 25px rgba(0,120,255,.35);
+
+}
+
+
+
+}
+
 
 </style>
 
+
 </head>
+
+
 
 <body>
 
+
 <div class="card">
 
+
 <div class="company-title">
+
 Stier Supply Company
+
 </div>
 
-<img src="../images/logo.png" alt="Stier Supply Company Logo">
 
-<h1>Stephen Hallick</h1>
+<img 
+class="logo"
+src="../images/logo.png"
+alt="Stier Supply Company Logo">
 
-<h2>Field Manager</h2>
 
-<a class="button" href="../contacts/stephenhallick.vcf">
-📇 Add Contact
+<h1>
+Stephen Hallick
+</h1>
+
+
+<h2>
+Field Manager
+</h2>
+
+
+
+<a 
+class="save-button"
+href="../contacts/stephenhallick.vcf">
+
+<i class="fa-solid fa-address-card"></i>
+
+Add Contact
+
 </a>
+
+
 
 <div class="info">
 
+
 <p>
-📞
+
+<i class="fa-solid fa-phone"></i>
+
 <a href="tel:+18436858398">
+
 843-685-8398
+
 </a>
+
 </p>
 
+
+
 <p>
-✉
+
+<i class="fa-solid fa-envelope"></i>
+
 <a href="mailto:stephen.hallick@stiersupply.com">
+
 stephen.hallick@stiersupply.com
+
 </a>
+
 </p>
 
+
+
 <p>
-🌐
-<a href="https://www.stiersupply.com/" target="_blank">
+
+<i class="fa-solid fa-globe"></i>
+
+<a 
+href="https://www.stiersupply.com/"
+target="_blank">
+
 www.stiersupply.com
+
 </a>
+
 </p>
+
+
 
 <p>
-📍
-<a href="https://www.google.com/maps/search/?api=1&query=324+Cameron+Circle+Suite+D+Myrtle+Beach+SC+29579">
-324 Cameron Circle, Suite D<br>
+
+<i class="fa-solid fa-location-dot"></i>
+
+
+<a 
+href="https://www.google.com/maps/search/?api=1&query=324+Cameron+Circle+Suite+D+Myrtle+Beach+SC+29579"
+target="_blank">
+
+324 Cameron Circle<br>
+Suite D<br>
 Myrtle Beach, SC 29579
+
 </a>
+
 </p>
 
-</div>
+
 
 </div>
+
+
+</div>
+
 
 </body>
+
 </html>
