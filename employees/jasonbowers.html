@@ -343,7 +343,17 @@
     </main>
     <script>
       const coreValues = ['"Stealthy and Stingy"', '"The House Talks"', '"Solve the Problem"', '"Flex with the Customer"', '"Think Like the Contractor"', '"Quality Better Than the Competition"'];
-      document.getElementById("core-value").textContent = coreValues[Math.floor(Math.random() * coreValues.length)];
+      const coreValueElement = document.getElementById("core-value");
+      // Start hidden
+      coreValueElement.style.opacity = "0";
+      coreValueElement.style.transform = "translateY(5px)";
+      // Pick random core value and fade it in
+      setTimeout(() => {
+        coreValueElement.textContent = coreValues[Math.floor(Math.random() * coreValues.length)];
+        coreValueElement.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+        coreValueElement.style.opacity = "1";
+        coreValueElement.style.transform = "translateY(0)";
+      }, 200);
     </script>
   </body>
 </html>
