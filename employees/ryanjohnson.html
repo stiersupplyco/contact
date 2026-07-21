@@ -30,18 +30,6 @@
       jobTitle: "Grand Strand Division Manager",
 
       /*
-        Optional territory heading.
-
-        Examples:
-        "Overseeing"
-        "Serving"
-        "Managing"
-
-        Leave blank if the employee has no territories.
-      */
-      territoryLabel: "Overseeing",
-
-      /*
         Leave this array empty for employees without territories:
 
         territories: []
@@ -1130,17 +1118,12 @@
 
         const territoryDisplay =
           hasTerritories
-            ? [
-                cleanText(employee.territoryLabel),
-                territoryCities.join(" • ")
-              ]
-                .filter(Boolean)
-                .join(" ")
+            ? territoryCities.join(" • ")
             : "";
 
         const territoryDescription =
           hasTerritories
-            ? `, overseeing the ${readableTerritories} branches`
+            ? ` | Markets: ${territoryCities.join(", ")}`
             : "";
 
         const pageUrl =
@@ -1658,7 +1641,7 @@
           lines.push(
             "NOTE:" +
             escapeVCard(
-              `Oversees ${data.readableTerritories}.`
+              `Markets: ${data.readableTerritories}.`
             )
           );
         }
