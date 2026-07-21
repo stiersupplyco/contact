@@ -283,7 +283,15 @@ margin-bottom:8px;
 
 }
 
+/* Random Core Value */
 
+.core-value{
+    margin:0 0 14px;
+    font-size:15px;
+    font-style:italic;
+    color:var(--muted);
+    min-height:20px;
+}
 
 /* Text */
 
@@ -734,7 +742,7 @@ Stier Supply Company
 
 </div>
 
-
+<div id="core-value" class="core-value"></div>
 
 <img
 
@@ -886,6 +894,19 @@ Myrtle Beach, SC
 
 </main>
 
+ <script>
+const coreValues = [
+    '"Stealth and Stingy"',
+    '"The House Talks"',
+    '"Solve the Problem"',
+    '"Flex with the Customer"',
+    '"Think Like the Contractor"',
+    '"Quality Better Than the Competition"'
+];
+
+document.getElementById("core-value").textContent =
+    coreValues[Math.floor(Math.random() * coreValues.length)];
+</script>
 
 </body>
 
