@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Test;Test;;;
+FN:Test Test
+ORG:Stier Supply Company
+TITLE:Test
+TEL;TYPE=CELL,WORK:+12345678910
+EMAIL;TYPE=WORK:test@stiersupply.com
+URL:https://www.stiersupply.com/
+ADR;TYPE=WORK:;;324 Cameron Circle, Suite D;Myrtle Beach;SC;29579;USA
+END:VCARD
