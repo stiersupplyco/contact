@@ -1723,8 +1723,21 @@ function renderRandomCoreValue(values) {
   const coreValueElement =
     document.getElementById("core-value");
 
-  const selectedValue =
-    values[Math.floor(Math.random() * values.length)];
+  const previousValue =
+  sessionStorage.getItem("previousCoreValue");
+
+const availableValues =
+  values.filter(value => value !== previousValue);
+
+const selectedValue =
+  availableValues[
+    Math.floor(Math.random() * availableValues.length)
+  ];
+
+sessionStorage.setItem(
+  "previousCoreValue",
+  selectedValue
+);
 
   coreValueElement.textContent =
     selectedValue;
