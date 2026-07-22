@@ -1738,19 +1738,6 @@ function renderRandomCoreValue(values) {
   });
 }
 
-        /*
-          Two animation frames allow the browser to render the
-          hidden state before applying the visible class.
-        */
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            coreValueElement
-              .classList
-              .add("show");
-          });
-        });
-      }
-
       /* =======================================================
          CARD REVEAL AND ERROR HANDLING
          ======================================================= */
