@@ -1712,42 +1712,31 @@
          RANDOM CORE VALUE
          ======================================================= */
 
-      function renderRandomCoreValue(values) {
-        if (
-          !Array.isArray(values) ||
-          values.length === 0
-        ) {
-          return;
-        }
+function renderRandomCoreValue(values) {
+  if (
+    !Array.isArray(values) ||
+    values.length === 0
+  ) {
+    return;
+  }
 
-        const coreValueElement =
-          document.getElementById("core-value");
+  const coreValueElement =
+    document.getElementById("core-value");
 
-        /*
-          Randomly select a core value each time the page loads.
-        */
-        const today =
-          new Date();
+  const selectedValue =
+    values[Math.floor(Math.random() * values.length)];
 
-        const dailySeed =
-          Date.UTC(
-            today.getFullYear(),
-            today.getMonth(),
-            today.getDate()
-          );
+  coreValueElement.textContent =
+    selectedValue;
 
-        const dayNumber =
-          Math.floor(
-            dailySeed / 86400000
-          );
-
-        const selectedValue =
-          values[
-            dayNumber % values.length
-          ];
-
-        coreValueElement.textContent =
-          selectedValue;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      coreValueElement
+        .classList
+        .add("show");
+    });
+  });
+}
 
         /*
           Two animation frames allow the browser to render the
