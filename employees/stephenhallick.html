@@ -1,1905 +1,1104 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- =========================================================
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- =========================================================
        EDIT EMPLOYEE INFORMATION ONLY IN THIS SECTION
        ========================================================= -->
-  <script>
-    const EMPLOYEE = {
-      /*
-        Name fields
+    <script>
+      const EMPLOYEE = {
+        /*
+          Name fields
 
-        Examples:
-        suffix: "Jr."
-        credentials: ["CPA", "MBA"]
+          Examples:
+          suffix: "Jr."
+          credentials: ["CPA", "MBA"]
 
-        Leave unused fields empty.
-      */
-      firstName: "Stephen",
-      middleName: "",
-      lastName: "Hallick",
-      suffix: "",
-      credentials: [],
+          Leave unused fields empty.
+        */
+        firstName: "Stephen",
+        middleName: "",
+        lastName: "Hallick",
+        suffix: "",
+        credentials: [],
+        jobTitle: "Field Manager",
+        /*
+          Leave this array empty for employees without territories:
 
-      jobTitle: "Field Manager",
+          territories: []
 
-      /*
-        Leave this array empty for employees without territories:
-
-        territories: []
-
-        The city names are displayed on the card.
-        The city and state are used in metadata and the VCF note.
-      */
-      territories: [
-        {
+          The city names are displayed on the card.
+          The city and state are used in metadata and the VCF note.
+        */
+        territories: [{
           city: "Myrtle Beach",
           state: "SC"
+        }],
+        /*
+          Enter the phone number in international E.164 format.
+
+          Example:
+          +18432094686
+
+          The displayed phone number is formatted automatically.
+        */
+        phone: "+18438658398",
+        email: "stephen.hallick@stiersupply.com",
+        /*
+          The slug controls the employee page URL and generated
+          VCF filename.
+
+          Leave blank to generate it automatically from the name.
+
+          Ryan Johnson becomes:
+          ryanjohnson
+
+          A manually entered slug can be used when two employees
+          have the same name.
+        */
+        slug: "",
+        /*
+          Set this to false for employees whose address should
+          not appear publicly.
+        */
+        showAddress: true,
+        address: {
+          street: "324 Cameron Circle",
+          unit: "Suite D",
+          city: "Myrtle Beach",
+          state: "SC",
+          postalCode: "29579",
+          country: "US"
         }
-      ],
-
+      };
       /*
-        Enter the phone number in international E.164 format.
-
-        Example:
-        +18432094686
-
-        The displayed phone number is formatted automatically.
+        Company information normally stays the same for every
+        employee.
       */
-      phone: "+18438658398",
-
-      email: "stephen.hallick@stiersupply.com",
-
+      const COMPANY = {
+        name: "Stier Supply Company",
+        website: "https://www.stiersupply.com/",
+        siteBaseUrl: "https://stiersupplyco.github.io/contact",
+        logoUrl: "https://stiersupplyco.github.io/contact/images/logo.png",
+        localLogoPath: "../images/logo.png"
+      };
       /*
-        The slug controls the employee page URL and generated
-        VCF filename.
+        Company core values normally stay the same for every
+        employee.
 
-        Leave blank to generate it automatically from the name.
-
-        Ryan Johnson becomes:
-        ryanjohnson
-
-        A manually entered slug can be used when two employees
-        have the same name.
+        One value is shown per calendar day rather than changing
+        every time the page is refreshed.
       */
-      slug: "",
-
-      /*
-        Set this to false for employees whose address should
-        not appear publicly.
-      */
-      showAddress: true,
-
-      address: {
-        street: "324 Cameron Circle",
-        unit: "Suite D",
-        city: "Myrtle Beach",
-        state: "SC",
-        postalCode: "29579",
-        country: "US"
+      const CORE_VALUES = ["Care", "Stealthy and Stingy", "The House Talks", "Solve the Problem", "Flex with the Customer", "Think Like the Contractor", "Quality Better Than the Competition"];
+    </script>
+    <!-- Default metadata is replaced automatically -->
+    <title>Stier Supply Company Employee Contact Card</title>
+    <meta id="meta-description" name="description" content="Stier Supply Company employee contact card.">
+    <meta name="theme-color" content="#0054A6">
+    <!-- Canonical URL -->
+    <link id="canonical-url" rel="canonical" href="https://stiersupplyco.github.io/contact/">
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/logo.png?v=3">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/logo.png?v=3">
+    <link rel="apple-touch-icon" href="../images/logo.png?v=3">
+    <!-- Open Graph -->
+    <meta id="og-title" property="og:title" content="Stier Supply Company Employee Contact Card">
+    <meta id="og-description" property="og:description" content="Stier Supply Company employee contact card.">
+    <meta id="og-image" property="og:image" content="https://stiersupplyco.github.io/contact/images/logo.png">
+    <meta id="og-url" property="og:url" content="https://stiersupplyco.github.io/contact/">
+    <meta property="og:type" content="profile">
+    <!-- Structured Contact Metadata -->
+    <script id="structured-data" type="application/ld+json"></script>
+    <style>
+      :root {
+        --blue: #0054A6;
+        --blue-dark: #003f7d;
+        --blue-light: #00AEEF;
+        --text: #222;
+        --muted: #666;
+        --card: rgba(255, 255, 255, .78);
+        --card-border: rgba(255, 255, 255, .45);
+        --focus: #00AEEF;
       }
-    };
 
-    /*
-      Company information normally stays the same for every
-      employee.
-    */
-    const COMPANY = {
-      name: "Stier Supply Company",
-      website: "https://www.stiersupply.com/",
-      siteBaseUrl: "https://stiersupplyco.github.io/contact",
-      logoUrl:
-        "https://stiersupplyco.github.io/contact/images/logo.png",
-      localLogoPath: "../images/logo.png"
-    };
+      * {
+        box-sizing: border-box;
+      }
 
-    /*
-      Company core values normally stay the same for every
-      employee.
+      html {
+        scroll-behavior: smooth;
+      }
 
-      One value is shown per calendar day rather than changing
-      every time the page is refreshed.
-    */
-    const CORE_VALUES = [
-      "Care",
-      "Stealthy and Stingy",
-      "The House Talks",
-      "Solve the Problem",
-      "Flex with the Customer",
-      "Think Like the Contractor",
-      "Quality Better Than the Competition"
-    ];
-  </script>
+      body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+        color: var(--text);
+        background:
+          linear-gradient(135deg,
+            #f5f7fa,
+            #dfe8f2);
+      }
 
-  <!-- Default metadata is replaced automatically -->
-  <title>Stier Supply Company Employee Contact Card</title>
-
-  <meta
-    id="meta-description"
-    name="description"
-    content="Stier Supply Company employee contact card."
-  >
-
-  <meta name="theme-color" content="#0054A6">
-
-  <!-- Canonical URL -->
-  <link
-    id="canonical-url"
-    rel="canonical"
-    href="https://stiersupplyco.github.io/contact/"
-  >
-
-  <!-- Favicons -->
-  <link
-    rel="icon"
-    type="image/png"
-    sizes="32x32"
-    href="../images/logo.png?v=3"
-  >
-
-  <link
-    rel="icon"
-    type="image/png"
-    sizes="16x16"
-    href="../images/logo.png?v=3"
-  >
-
-  <link
-    rel="apple-touch-icon"
-    href="../images/logo.png?v=3"
-  >
-
-  <!-- Open Graph -->
-  <meta
-    id="og-title"
-    property="og:title"
-    content="Stier Supply Company Employee Contact Card"
-  >
-
-  <meta
-    id="og-description"
-    property="og:description"
-    content="Stier Supply Company employee contact card."
-  >
-
-  <meta
-    id="og-image"
-    property="og:image"
-    content="https://stiersupplyco.github.io/contact/images/logo.png"
-  >
-
-  <meta
-    id="og-url"
-    property="og:url"
-    content="https://stiersupplyco.github.io/contact/"
-  >
-
-  <meta property="og:type" content="profile">
-
-  <!-- Structured Contact Metadata -->
-  <script
-    id="structured-data"
-    type="application/ld+json"
-  ></script>
-
-  <style>
-    :root {
-      --blue: #0054A6;
-      --blue-dark: #003f7d;
-      --blue-light: #00AEEF;
-
-      --text: #222;
-      --muted: #666;
-
-      --card: rgba(255, 255, 255, .78);
-      --card-border: rgba(255, 255, 255, .45);
-
-      --focus: #00AEEF;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
-      color: var(--text);
-
-      background:
-        linear-gradient(
-          135deg,
-          #f5f7fa,
-          #dfe8f2
-        );
-    }
-
-    /*
+      /*
       The card stays invisible until all employee information
       has been rendered. This prevents blank fields from briefly
       appearing.
     */
-    .card {
-      visibility: hidden;
-      opacity: 0;
-      transform: translateY(15px);
-
-      width: 100%;
-      max-width: 420px;
-
-      padding: 25px 22px;
-
-      text-align: center;
-
-      background: var(--card);
-
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-
-      border:
-        1px solid var(--card-border);
-
-      border-radius: 24px;
-
-      box-shadow:
-        0 20px 45px rgba(0, 0, 0, .15);
-    }
-
-    .card.ready {
-      visibility: visible;
-
-      animation:
-        fadeIn .45s ease both;
-    }
-
-    @keyframes fadeIn {
-      from {
+      .card {
+        visibility: hidden;
         opacity: 0;
         transform: translateY(15px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Company name */
-    .company-title {
-      margin-bottom: 8px;
-
-      font-size: 21px;
-      font-weight: 700;
-
-      background:
-        linear-gradient(
-          90deg,
-          var(--blue),
-          var(--blue-light)
-        );
-
-      background-clip: text;
-      -webkit-background-clip: text;
-
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-    }
-
-    /* Core value */
-    .core-value {
-      min-height: 20px;
-      margin: 0 0 14px;
-
-      font-size: 13px;
-      font-style: italic;
-
-      color: var(--muted);
-
-      opacity: 0;
-      transform: translateY(5px);
-
-      transition:
-        opacity .8s ease,
-        transform .8s ease;
-    }
-
-    .core-value.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .core-value::before {
-      content: '"';
-    }
-
-    .core-value::after {
-      content: '"';
-    }
-
-    /* Logo */
-    .logo {
-      width: 130px;
-      max-width: 40vw;
-      height: auto;
-
-      margin-bottom: 12px;
-
-      filter:
-        drop-shadow(
-          0 6px 10px rgba(0, 0, 0, .22)
-        );
-    }
-
-    /* Employee name */
-    h1 {
-      margin: 5px 0;
-
-      font-size: 28px;
-      font-weight: 700;
-      line-height: 1.15;
-    }
-
-    /* Employee title */
-    h2 {
-      margin: 0 0 15px;
-
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 1.35;
-
-      color: var(--muted);
-    }
-
-    /* Optional territories */
-    .territory {
-      margin: -8px 0 20px;
-
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 1.5;
-      letter-spacing: .5px;
-
-      color: var(--muted);
-
-      text-transform: uppercase;
-    }
-
-    .territory:empty,
-    [hidden] {
-      display: none !important;
-    }
-
-    /* Save Contact button */
-    .save-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-
-      width: 100%;
-      padding: 15px;
-
-      color: white;
-      text-decoration: none;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--blue),
-          #0077cc
-        );
-
-      border-radius: 14px;
-
-      font-size: 18px;
-      font-weight: 700;
-
-      box-shadow:
-        0 8px 20px rgba(0, 84, 166, .35);
-
-      transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        filter .2s ease;
-    }
-
-    .save-button:hover,
-    .save-button:focus-visible {
-      transform: translateY(-2px);
-
-      filter: brightness(1.03);
-
-      box-shadow:
-        0 12px 25px rgba(0, 84, 166, .45);
-    }
-
-    .save-button:active {
-      transform: scale(.98);
-    }
-
-    .save-button svg {
-      width: 20px;
-      height: 20px;
-      flex: none;
-
-      fill: currentColor;
-    }
-
-    /* Contact information */
-    .info {
-      margin-top: 18px;
-
-      font-size: 14px;
-      line-height: 1.25;
-    }
-
-    .info-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-
-      min-height: 28px;
-      margin: 2px 0;
-      padding: 3px 8px;
-    }
-
-    .info-row svg {
-      width: 16px;
-      height: 16px;
-      flex: none;
-
-      fill: var(--blue);
-    }
-
-    .info-row a {
-      color: var(--blue);
-      text-decoration: none;
-
-      line-height: 1.2;
-
-      overflow-wrap: anywhere;
-
-      transition:
-        color .2s ease;
-    }
-
-    .info-row a:hover {
-      color: var(--blue-light);
-    }
-
-    /* Address */
-    .address {
-      align-items: flex-start;
-
-      font-size: 13px;
-      line-height: 1.25;
-    }
-
-    /* Error message */
-    .error-message {
-      display: none;
-
-      width: 100%;
-      max-width: 520px;
-
-      padding: 20px;
-
-      color: #721c24;
-      background: #f8d7da;
-
-      border:
-        1px solid #f5c6cb;
-
-      border-radius: 12px;
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
-      line-height: 1.5;
-    }
-
-    .error-message.show {
-      display: block;
-    }
-
-    .error-message strong {
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    /* Keyboard accessibility */
-    a:focus-visible {
-      outline:
-        3px solid var(--focus);
-
-      outline-offset: 3px;
-
-      border-radius: 8px;
-    }
-
-    /* Mobile */
-    @media (max-width: 400px) {
-      body {
-        padding: 14px;
-      }
-
-      .card {
-        padding: 20px 16px;
-      }
-
-      .logo {
-        width: 110px;
-      }
-
-      h1 {
-        font-size: 24px;
-      }
-
-      .save-button {
-        font-size: 16px;
-      }
-    }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
+        width: 100%;
+        max-width: 420px;
+        padding: 25px 22px;
+        text-align: center;
+        background: var(--card);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border:
+          1px solid var(--card-border);
+        border-radius: 24px;
+        box-shadow:
+          0 20px 45px rgba(0, 0, 0, .15);
       }
 
       .card.ready {
-        opacity: 1;
-        transform: none;
+        visibility: visible;
+        animation:
+          fadeIn .45s ease both;
       }
 
-      .core-value {
-        opacity: 1;
-        transform: none;
-      }
-    }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
 
-    /* Dark mode */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --text: #f5f5f5;
-        --muted: #bdbdbd;
-
-        --card: rgba(30, 30, 30, .78);
-        --card-border: rgba(255, 255, 255, .12);
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
-      body {
+      /* Company name */
+      .company-title {
+        margin-bottom: 8px;
+        font-size: 21px;
+        font-weight: 700;
         background:
-          linear-gradient(
-            135deg,
-            #101214,
-            #202833
-          );
+          linear-gradient(90deg,
+            var(--blue),
+            var(--blue-light));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
       }
 
-      .card {
-        box-shadow:
-          0 20px 45px rgba(0, 0, 0, .65);
+      /* Core value */
+      .core-value {
+        min-height: 20px;
+        margin: 0 0 14px;
+        font-size: 13px;
+        font-style: italic;
+        color: var(--muted);
+        opacity: 0;
+        transform: translateY(5px);
+        transition:
+          opacity .8s ease,
+          transform .8s ease;
       }
 
+      .core-value.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .core-value::before {
+        content: '"';
+      }
+
+      .core-value::after {
+        content: '"';
+      }
+
+      /* Logo */
       .logo {
+        width: 130px;
+        max-width: 40vw;
+        height: auto;
+        margin-bottom: 12px;
         filter:
-          drop-shadow(
-            0 6px 12px rgba(0, 0, 0, .55)
-          )
-          brightness(1.05);
+          drop-shadow(0 6px 10px rgba(0, 0, 0, .22));
       }
 
+      /* Employee name */
+      h1 {
+        margin: 5px 0;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.15;
+      }
+
+      /* Employee title */
+      h2 {
+        margin: 0 0 15px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.35;
+        color: var(--muted);
+      }
+
+      /* Optional territories */
+      .territory {
+        margin: -8px 0 20px;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: .5px;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+
+      .territory:empty,
+      [hidden] {
+        display: none !important;
+      }
+
+      /* Save Contact button */
       .save-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 15px;
+        color: white;
+        text-decoration: none;
+        background:
+          linear-gradient(135deg,
+            var(--blue),
+            #0077cc);
+        border-radius: 14px;
+        font-size: 18px;
+        font-weight: 700;
         box-shadow:
-          0 8px 24px rgba(0, 119, 204, .32);
+          0 8px 20px rgba(0, 84, 166, .35);
+        transition:
+          transform .2s ease,
+          box-shadow .2s ease,
+          filter .2s ease;
+      }
+
+      .save-button:hover,
+      .save-button:focus-visible {
+        transform: translateY(-2px);
+        filter: brightness(1.03);
+        box-shadow:
+          0 12px 25px rgba(0, 84, 166, .45);
+      }
+
+      .save-button:active {
+        transform: scale(.98);
+      }
+
+      .save-button svg {
+        width: 20px;
+        height: 20px;
+        flex: none;
+        fill: currentColor;
+      }
+
+      /* Contact information */
+      .info {
+        margin-top: 18px;
+        font-size: 14px;
+        line-height: 1.25;
+      }
+
+      .info-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 28px;
+        margin: 2px 0;
+        padding: 3px 8px;
       }
 
       .info-row svg {
-        fill: #70b8ff;
+        width: 16px;
+        height: 16px;
+        flex: none;
+        fill: var(--blue);
       }
 
       .info-row a {
-        color: #70b8ff;
+        color: var(--blue);
+        text-decoration: none;
+        line-height: 1.2;
+        overflow-wrap: anywhere;
+        transition:
+          color .2s ease;
       }
 
       .info-row a:hover {
-        color: #9ed0ff;
-      }
-    }
-  </style>
-
-</head>
-
-<body>
-
-  <main
-    id="business-card"
-    class="card"
-    aria-label="Digital business card"
-  >
-
-    <div
-      id="company-name"
-      class="company-title"
-    ></div>
-
-    <div
-      id="core-value"
-      class="core-value"
-      aria-live="polite"
-    ></div>
-
-    <img
-      id="company-logo"
-      class="logo"
-      src="../images/logo.png"
-      alt="Stier Supply Company logo"
-    >
-
-    <h1 id="employee-name"></h1>
-
-    <h2 id="employee-title"></h2>
-
-    <p
-      id="employee-territory"
-      class="territory"
-    ></p>
-
-    <a
-      id="save-contact"
-      class="save-button"
-      href="#"
-      download
-    >
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-      >
-        <path d="M19 2H8c-1.1 0-2 .9-2 2v3H5c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2v-3h1c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-3 16H5V9h11v9zm3-5h-1v-4c0-1.1-.9-2-2-2H8V4h11v9z"/>
-      </svg>
-
-      <span>Save Contact</span>
-    </a>
-
-    <section
-      class="info"
-      aria-label="Contact information"
-    >
-
-      <!-- Phone -->
-      <div
-        id="phone-row"
-        class="info-row"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-        </svg>
-
-        <a id="employee-phone"></a>
-      </div>
-
-      <!-- Email -->
-      <div
-        id="email-row"
-        class="info-row"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
-        </svg>
-
-        <a id="employee-email"></a>
-      </div>
-
-      <!-- Website -->
-      <div
-        id="website-row"
-        class="info-row"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm6.9 9h-3.1c-.1-1.2-.4-2.3-.8-3.3A8 8 0 0118.9 11zM12 4c.8 1.2 1.4 2.8 1.7 5h-3.4c.3-2.2.9-3.8 1.7-5zM9.9 11H5.1a8 8 0 013.1-5.3c-.5 1.3-1 3.3-1.3 5.3zm0 2c.3 2 .8 4 1.3 5.3A8 8 0 015.1 13h4.8zm2.1 7c-.8-1.2-1.4-2.8-1.7-5h3.4c-.3 2.2-.9 3.8-1.7 5zm2.1-7h4.8a8 8 0 01-3.1 5.3c.5-1.3 1-3.3 1.3-5.3z"/>
-        </svg>
-
-        <a
-          id="company-website"
-          target="_blank"
-          rel="noopener noreferrer"
-        ></a>
-      </div>
-
-      <!-- Address -->
-      <div
-        id="address-row"
-        class="info-row address"
-        hidden
-      >
-        <svg
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/>
-        </svg>
-
-        <a
-          id="employee-address"
-          target="_blank"
-          rel="noopener noreferrer"
-        ></a>
-      </div>
-
-    </section>
-
-  </main>
-
-  <div
-    id="error-message"
-    class="error-message"
-    role="alert"
-  ></div>
-
-  <script>
-    (() => {
-      "use strict";
-
-      let generatedVCardUrl = null;
-
-      try {
-        /*
-          Validate the information before rendering anything.
-        */
-        validateEmployee(EMPLOYEE);
-        validateCompany(COMPANY);
-
-        /*
-          Build every calculated value once.
-
-          The visible card, metadata and VCF all use this same
-          data object.
-        */
-        const DATA = buildEmployeeData(
-          EMPLOYEE,
-          COMPANY
-        );
-
-        /*
-          Render all parts of the page from the same source.
-        */
-        renderMetadata(DATA);
-        renderCard(DATA);
-        prepareGeneratedVCard(DATA);
-        renderRandomCoreValue(CORE_VALUES);
-        revealCard();
-
-      } catch (error) {
-        showConfigurationError(error);
+        color: var(--blue-light);
       }
 
-      /*
-        Clean up the generated Blob URL when the page closes.
-      */
-      window.addEventListener("beforeunload", () => {
-        if (generatedVCardUrl) {
-          URL.revokeObjectURL(generatedVCardUrl);
-        }
-      });
+      /* Address */
+      .address {
+        align-items: flex-start;
+        font-size: 13px;
+        line-height: 1.25;
+      }
 
-      /* =======================================================
-         VALIDATION
-         ======================================================= */
+      /* Error message */
+      .error-message {
+        display: none;
+        width: 100%;
+        max-width: 520px;
+        padding: 20px;
+        color: #721c24;
+        background: #f8d7da;
+        border:
+          1px solid #f5c6cb;
+        border-radius: 12px;
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.5;
+      }
 
-      function validateEmployee(employee) {
-        if (!employee || typeof employee !== "object") {
-          throw new Error(
-            "The EMPLOYEE object is missing or invalid."
-          );
-        }
+      .error-message.show {
+        display: block;
+      }
 
-        const requiredFields = [
-          ["firstName", employee.firstName],
-          ["lastName", employee.lastName],
-          ["jobTitle", employee.jobTitle],
-          ["phone", employee.phone],
-          ["email", employee.email]
-        ];
+      .error-message strong {
+        display: block;
+        margin-bottom: 8px;
+      }
 
-        const missingFields = requiredFields
-          .filter(([, value]) => {
-            return !String(value || "").trim();
-          })
-          .map(([field]) => field);
+      /* Keyboard accessibility */
+      a:focus-visible {
+        outline:
+          3px solid var(--focus);
+        outline-offset: 3px;
+        border-radius: 8px;
+      }
 
-        if (missingFields.length > 0) {
-          throw new Error(
-            "Missing required employee fields: " +
-            missingFields.join(", ")
-          );
-        }
-
-        if (
-          !/^\+[1-9]\d{7,14}$/.test(
-            String(employee.phone).trim()
-          )
-        ) {
-          throw new Error(
-            "The phone number must use international " +
-            "E.164 format, such as +18432094686."
-          );
+      /* Mobile */
+      @media (max-width: 400px) {
+        body {
+          padding: 14px;
         }
 
-        if (
-          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-            String(employee.email).trim()
-          )
-        ) {
-          throw new Error(
-            "The employee email address is invalid."
-          );
+        .card {
+          padding: 20px 16px;
         }
 
-        if (
-          employee.slug &&
-          !/^[a-z0-9-]+$/.test(employee.slug)
-        ) {
-          throw new Error(
-            "The slug may contain only lowercase letters, " +
-            "numbers and hyphens."
-          );
+        .logo {
+          width: 110px;
         }
 
-        if (
-          !Array.isArray(employee.credentials)
-        ) {
-          throw new Error(
-            "The credentials field must be an array."
-          );
+        h1 {
+          font-size: 24px;
         }
 
-        if (
-          !Array.isArray(employee.territories)
-        ) {
-          throw new Error(
-            "The territories field must be an array."
-          );
-        }
-
-        employee.territories.forEach(
-          (territory, index) => {
-            if (
-              !territory ||
-              typeof territory !== "object"
-            ) {
-              throw new Error(
-                `Territory ${index + 1} is invalid.`
-              );
-            }
-
-            if (!String(territory.city || "").trim()) {
-              throw new Error(
-                `Territory ${index + 1} is missing a city.`
-              );
-            }
-
-            if (!String(territory.state || "").trim()) {
-              throw new Error(
-                `Territory ${index + 1} is missing a state.`
-              );
-            }
-          }
-        );
-
-        if (
-          employee.showAddress &&
-          (
-            !employee.address ||
-            typeof employee.address !== "object"
-          )
-        ) {
-          throw new Error(
-            "Address information is required when " +
-            "showAddress is true."
-          );
-        }
-
-        if (employee.showAddress) {
-          const requiredAddressFields = [
-            ["street", employee.address.street],
-            ["city", employee.address.city],
-            ["state", employee.address.state],
-            [
-              "postalCode",
-              employee.address.postalCode
-            ],
-            ["country", employee.address.country]
-          ];
-
-          const missingAddressFields =
-            requiredAddressFields
-              .filter(([, value]) => {
-                return !String(value || "").trim();
-              })
-              .map(([field]) => field);
-
-          if (missingAddressFields.length > 0) {
-            throw new Error(
-              "Missing required address fields: " +
-              missingAddressFields.join(", ")
-            );
-          }
+        .save-button {
+          font-size: 16px;
         }
       }
 
-      function validateCompany(company) {
-        if (!company || typeof company !== "object") {
-          throw new Error(
-            "The COMPANY object is missing or invalid."
-          );
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
         }
 
-        const requiredFields = [
-          ["name", company.name],
-          ["website", company.website],
-          ["siteBaseUrl", company.siteBaseUrl],
-          ["logoUrl", company.logoUrl],
-          ["localLogoPath", company.localLogoPath]
-        ];
-
-        const missingFields = requiredFields
-          .filter(([, value]) => {
-            return !String(value || "").trim();
-          })
-          .map(([field]) => field);
-
-        if (missingFields.length > 0) {
-          throw new Error(
-            "Missing required company fields: " +
-            missingFields.join(", ")
-          );
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
         }
 
-        validateUrl(
-          company.website,
-          "company website"
-        );
+        .card.ready {
+          opacity: 1;
+          transform: none;
+        }
 
-        validateUrl(
-          company.siteBaseUrl,
-          "company site base URL"
-        );
-
-        validateUrl(
-          company.logoUrl,
-          "company logo URL"
-        );
+        .core-value {
+          opacity: 1;
+          transform: none;
+        }
       }
 
-      function validateUrl(value, label) {
+      /* Dark mode */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --text: #f5f5f5;
+          --muted: #bdbdbd;
+          --card: rgba(30, 30, 30, .78);
+          --card-border: rgba(255, 255, 255, .12);
+        }
+
+        body {
+          background:
+            linear-gradient(135deg,
+              #101214,
+              #202833);
+        }
+
+        .card {
+          box-shadow:
+            0 20px 45px rgba(0, 0, 0, .65);
+        }
+
+        .logo {
+          filter:
+            drop-shadow(0 6px 12px rgba(0, 0, 0, .55)) brightness(1.05);
+        }
+
+        .save-button {
+          box-shadow:
+            0 8px 24px rgba(0, 119, 204, .32);
+        }
+
+        .info-row svg {
+          fill: #70b8ff;
+        }
+
+        .info-row a {
+          color: #70b8ff;
+        }
+
+        .info-row a:hover {
+          color: #9ed0ff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main id="business-card" class="card" aria-label="Digital business card">
+      <div id="company-name" class="company-title"></div>
+      <div id="core-value" class="core-value" aria-live="polite"></div>
+      <img id="company-logo" class="logo" src="../images/logo.png" alt="Stier Supply Company logo">
+      <h1 id="employee-name"></h1>
+      <h2 id="employee-title"></h2>
+      <p id="employee-territory" class="territory"></p>
+      <a id="save-contact" class="save-button" href="#" download>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19 2H8c-1.1 0-2 .9-2 2v3H5c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2v-3h1c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-3 16H5V9h11v9zm3-5h-1v-4c0-1.1-.9-2-2-2H8V4h11v9z" />
+        </svg>
+        <span>Save Contact</span>
+      </a>
+      <section class="info" aria-label="Contact information">
+        <!-- Phone -->
+        <div id="phone-row" class="info-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+          </svg>
+          <a id="employee-phone"></a>
+        </div>
+        <!-- Email -->
+        <div id="email-row" class="info-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+          </svg>
+          <a id="employee-email"></a>
+        </div>
+        <!-- Website -->
+        <div id="website-row" class="info-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm6.9 9h-3.1c-.1-1.2-.4-2.3-.8-3.3A8 8 0 0118.9 11zM12 4c.8 1.2 1.4 2.8 1.7 5h-3.4c.3-2.2.9-3.8 1.7-5zM9.9 11H5.1a8 8 0 013.1-5.3c-.5 1.3-1 3.3-1.3 5.3zm0 2c.3 2 .8 4 1.3 5.3A8 8 0 015.1 13h4.8zm2.1 7c-.8-1.2-1.4-2.8-1.7-5h3.4c-.3 2.2-.9 3.8-1.7 5zm2.1-7h4.8a8 8 0 01-3.1 5.3c.5-1.3 1-3.3 1.3-5.3z" />
+          </svg>
+          <a id="company-website" target="_blank" rel="noopener noreferrer"></a>
+        </div>
+        <!-- Address -->
+        <div id="address-row" class="info-row address" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z" />
+          </svg>
+          <a id="employee-address" target="_blank" rel="noopener noreferrer"></a>
+        </div>
+      </section>
+    </main>
+    <div id="error-message" class="error-message" role="alert"></div>
+    <script>
+      (() => {
+        "use strict";
+        let generatedVCardUrl = null;
         try {
-          new URL(value);
-        } catch {
-          throw new Error(
-            `The ${label} is not a valid URL.`
-          );
+          /*
+            Validate the information before rendering anything.
+          */
+          validateEmployee(EMPLOYEE);
+          validateCompany(COMPANY);
+          /*
+            Build every calculated value once.
+
+            The visible card, metadata and VCF all use this same
+            data object.
+          */
+          const DATA = buildEmployeeData(EMPLOYEE, COMPANY);
+          /*
+            Render all parts of the page from the same source.
+          */
+          renderMetadata(DATA);
+          renderCard(DATA);
+          prepareGeneratedVCard(DATA);
+          renderRandomCoreValue(CORE_VALUES);
+          revealCard();
+        } catch (error) {
+          showConfigurationError(error);
         }
-      }
+        /*
+          Clean up the generated Blob URL when the page closes.
+        */
+        window.addEventListener("beforeunload", () => {
+          if (generatedVCardUrl) {
+            URL.revokeObjectURL(generatedVCardUrl);
+          }
+        });
+        /* =======================================================
+           VALIDATION
+           ======================================================= */
+        function validateEmployee(employee) {
+          if (!employee || typeof employee !== "object") {
+            throw new Error("The EMPLOYEE object is missing or invalid.");
+          }
+          const requiredFields = [
+            ["firstName", employee.firstName],
+            ["lastName", employee.lastName],
+            ["jobTitle", employee.jobTitle],
+            ["phone", employee.phone],
+            ["email", employee.email]
+          ];
+          const missingFields = requiredFields.filter(([, value]) => {
+            return !String(value || "").trim();
+          }).map(([field]) => field);
+          if (missingFields.length > 0) {
+            throw new Error("Missing required employee fields: " + missingFields.join(", "));
+          }
+          if (!/^\+[1-9]\d{7,14}$/.test(String(employee.phone).trim())) {
+            throw new Error("The phone number must use international " + "E.164 format, such as +18432094686.");
+          }
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(employee.email).trim())) {
+            throw new Error("The employee email address is invalid.");
+          }
+          if (employee.slug && !/^[a-z0-9-]+$/.test(employee.slug)) {
+            throw new Error("The slug may contain only lowercase letters, " + "numbers and hyphens.");
+          }
+          if (!Array.isArray(employee.credentials)) {
+            throw new Error("The credentials field must be an array.");
+          }
+          if (!Array.isArray(employee.territories)) {
+            throw new Error("The territories field must be an array.");
+          }
+          employee.territories.forEach(
+            (territory, index) => {
+              if (!territory || typeof territory !== "object") {
+                throw new Error(`Territory ${index + 1} is invalid.`);
+              }
+              if (!String(territory.city || "").trim()) {
+                throw new Error(`Territory ${index + 1} is missing a city.`);
+              }
+              if (!String(territory.state || "").trim()) {
+                throw new Error(`Territory ${index + 1} is missing a state.`);
+              }
+            });
+          if (employee.showAddress && (!employee.address || typeof employee.address !== "object")) {
+            throw new Error("Address information is required when " + "showAddress is true.");
+          }
+          if (employee.showAddress) {
+            const requiredAddressFields = [
+              ["street", employee.address.street],
+              ["city", employee.address.city],
+              ["state", employee.address.state],
+              ["postalCode",
+                employee.address.postalCode
+              ],
+              ["country", employee.address.country]
+            ];
+            const missingAddressFields = requiredAddressFields.filter(([, value]) => {
+              return !String(value || "").trim();
+            }).map(([field]) => field);
+            if (missingAddressFields.length > 0) {
+              throw new Error("Missing required address fields: " + missingAddressFields.join(", "));
+            }
+          }
+        }
 
-      /* =======================================================
-         BUILD CALCULATED DATA
-         ======================================================= */
+        function validateCompany(company) {
+          if (!company || typeof company !== "object") {
+            throw new Error("The COMPANY object is missing or invalid.");
+          }
+          const requiredFields = [
+            ["name", company.name],
+            ["website", company.website],
+            ["siteBaseUrl", company.siteBaseUrl],
+            ["logoUrl", company.logoUrl],
+            ["localLogoPath", company.localLogoPath]
+          ];
+          const missingFields = requiredFields.filter(([, value]) => {
+            return !String(value || "").trim();
+          }).map(([field]) => field);
+          if (missingFields.length > 0) {
+            throw new Error("Missing required company fields: " + missingFields.join(", "));
+          }
+          validateUrl(company.website, "company website");
+          validateUrl(company.siteBaseUrl, "company site base URL");
+          validateUrl(company.logoUrl, "company logo URL");
+        }
 
-      function buildEmployeeData(
-        employee,
-        company
-      ) {
-        const firstName =
-          cleanText(employee.firstName);
-
-        const middleName =
-          cleanText(employee.middleName);
-
-        const lastName =
-          cleanText(employee.lastName);
-
-        const suffix =
-          cleanText(employee.suffix);
-
-        const credentials =
-          employee.credentials
-            .map(cleanText)
-            .filter(Boolean);
-
-        const legalName = [
-          firstName,
-          middleName,
-          lastName,
-          suffix
-        ]
-          .filter(Boolean)
-          .join(" ");
-
-        const displayName =
-          credentials.length > 0
-            ? `${legalName}, ${credentials.join(", ")}`
-            : legalName;
-
-        const slug =
-          cleanText(employee.slug) ||
-          createSlug(
+        function validateUrl(value, label) {
+          try {
+            new URL(value);
+          } catch {
+            throw new Error(`The ${label} is not a valid URL.`);
+          }
+        }
+        /* =======================================================
+           BUILD CALCULATED DATA
+           ======================================================= */
+        function buildEmployeeData(employee, company) {
+          const firstName = cleanText(employee.firstName);
+          const middleName = cleanText(employee.middleName);
+          const lastName = cleanText(employee.lastName);
+          const suffix = cleanText(employee.suffix);
+          const credentials = employee.credentials.map(cleanText).filter(Boolean);
+          const legalName = [
+            firstName,
+            middleName,
+            lastName,
+            suffix
+          ].filter(Boolean).join(" ");
+          const displayName = credentials.length > 0 ? `${legalName}, ${credentials.join(", ")}` : legalName;
+          const slug = cleanText(employee.slug) || createSlug(
             [
               firstName,
               middleName,
               lastName,
               suffix
-            ]
-              .filter(Boolean)
-              .join(" ")
-          );
-
-        const territories =
-          employee.territories.map(territory => ({
+            ].filter(Boolean).join(" "));
+          const territories = employee.territories.map(territory => ({
             city: cleanText(territory.city),
             state: cleanText(territory.state)
           }));
-
-        const hasTerritories =
-          territories.length > 0;
-
-        const territoryCities =
-          territories.map(
-            territory => territory.city
-          );
-
-        const territoryAreas =
-          territories.map(
-            territory =>
-              `${territory.city}, ${territory.state}`
-          );
-
-        const readableTerritories =
-          hasTerritories
-            ? formatReadableList(territoryCities)
-            : "";
-
-        const territoryDisplay =
-          hasTerritories
-            ? territoryCities.join(" • ")
-            : "";
-
-        const territoryDescription =
-          hasTerritories
-            ? ` | Markets: ${territoryCities.join(", ")}`
-            : "";
-
-        const pageUrl =
-          `${company.siteBaseUrl}` +
-          `/employees/${slug}.html`;
-
-        const description =
-          `${displayName} - ${employee.jobTitle} at ` +
-          `${company.name}${territoryDescription}.`;
-
-        const address =
-          buildAddressData(
-            employee.address,
-            employee.showAddress
-          );
-
-        return {
-          employee,
-          company,
-
-          firstName,
-          middleName,
-          lastName,
-          suffix,
-          credentials,
-
-          legalName,
-          displayName,
-          slug,
-
-          territories,
-          territoryCities,
-          territoryAreas,
-          readableTerritories,
-          territoryDisplay,
-          hasTerritories,
-
-          phone:
-            cleanText(employee.phone),
-
-          formattedPhone:
-            formatPhoneNumber(employee.phone),
-
-          email:
-            cleanText(employee.email),
-
-          jobTitle:
-            cleanText(employee.jobTitle),
-
-          pageUrl,
-          description,
-
-          address,
-
-          vCardFilename:
-            `${slug}.vcf`
-        };
-      }
-
-      function buildAddressData(
-        address,
-        showAddress
-      ) {
-        if (
-          !showAddress ||
-          !address ||
-          typeof address !== "object"
-        ) {
+          const hasTerritories = territories.length > 0;
+          const territoryCities = territories.map(territory => territory.city);
+          const territoryAreas = territories.map(territory => `${territory.city}, ${territory.state}`);
+          const readableTerritories = hasTerritories ? formatReadableList(territoryCities) : "";
+          const territoryDisplay = hasTerritories ? territoryCities.join(" • ") : "";
+          const territoryDescription = hasTerritories ? ` | Markets: ${territoryCities.join(", ")}` : "";
+          const pageUrl = `${company.siteBaseUrl}` + `/employees/${slug}.html`;
+          const description = `${displayName} - ${employee.jobTitle} at ` + `${company.name}${territoryDescription}.`;
+          const address = buildAddressData(employee.address, employee.showAddress);
           return {
-            visible: false,
-            street: "",
-            unit: "",
-            city: "",
-            state: "",
-            postalCode: "",
-            country: "",
-            lineOne: "",
-            lineTwo: "",
-            complete: "",
-            mapsUrl: ""
+            employee,
+            company,
+            firstName,
+            middleName,
+            lastName,
+            suffix,
+            credentials,
+            legalName,
+            displayName,
+            slug,
+            territories,
+            territoryCities,
+            territoryAreas,
+            readableTerritories,
+            territoryDisplay,
+            hasTerritories,
+            phone: cleanText(employee.phone),
+            formattedPhone: formatPhoneNumber(employee.phone),
+            email: cleanText(employee.email),
+            jobTitle: cleanText(employee.jobTitle),
+            pageUrl,
+            description,
+            address,
+            vCardFilename: `${slug}.vcf`
           };
         }
 
-        const street =
-          cleanText(address.street);
-
-        const unit =
-          cleanText(address.unit);
-
-        const city =
-          cleanText(address.city);
-
-        const state =
-          cleanText(address.state);
-
-        const postalCode =
-          cleanText(address.postalCode);
-
-        const country =
-          cleanText(address.country);
-
-        const lineOne = [
-          street,
-          unit
-        ]
-          .filter(Boolean)
-          .join(", ");
-
-        const lineTwo = [
-          city,
-          state,
-          postalCode
-        ]
-          .filter(Boolean)
-          .join(" ");
-
-        const complete = [
-          lineOne,
-          city,
-          state,
-          postalCode,
-          country
-        ]
-          .filter(Boolean)
-          .join(", ");
-
-        const mapsUrl =
-          "https://www.google.com/maps/search/" +
-          "?api=1&query=" +
-          encodeURIComponent(complete);
-
-        return {
-          visible: true,
-          street,
-          unit,
-          city,
-          state,
-          postalCode,
-          country,
-          lineOne,
-          lineTwo,
-          complete,
-          mapsUrl
-        };
-      }
-
-      /* =======================================================
-         RENDER METADATA
-         ======================================================= */
-
-      function renderMetadata(data) {
-        document.title =
-          `${data.displayName} | ${data.company.name}`;
-
-        setMetaContent(
-          "meta-description",
-          data.description
-        );
-
-        setMetaContent(
-          "og-title",
-          `${data.displayName} | ${data.company.name}`
-        );
-
-        setMetaContent(
-          "og-description",
-          data.description
-        );
-
-        setMetaContent(
-          "og-image",
-          data.company.logoUrl
-        );
-
-        setMetaContent(
-          "og-url",
-          data.pageUrl
-        );
-
-        document
-          .getElementById("canonical-url")
-          .setAttribute(
-            "href",
-            data.pageUrl
-          );
-
-        const structuredData = {
-          "@context": "https://schema.org",
-          "@type": "Person",
-
-          "name": data.displayName,
-          "givenName": data.firstName,
-          "familyName": data.lastName,
-
-          "jobTitle": data.jobTitle,
-
-          "worksFor": {
-            "@type": "Organization",
-            "name": data.company.name,
-            "url": data.company.website
-          },
-
-          "telephone": data.phone,
-          "email": data.email,
-          "url": data.pageUrl
-        };
-
-        if (data.middleName) {
-          structuredData.additionalName =
-            data.middleName;
+        function buildAddressData(address, showAddress) {
+          if (!showAddress || !address || typeof address !== "object") {
+            return {
+              visible: false,
+              street: "",
+              unit: "",
+              city: "",
+              state: "",
+              postalCode: "",
+              country: "",
+              lineOne: "",
+              lineTwo: "",
+              complete: "",
+              mapsUrl: ""
+            };
+          }
+          const street = cleanText(address.street);
+          const unit = cleanText(address.unit);
+          const city = cleanText(address.city);
+          const state = cleanText(address.state);
+          const postalCode = cleanText(address.postalCode);
+          const country = cleanText(address.country);
+          const lineOne = [
+            street,
+            unit
+          ].filter(Boolean).join(", ");
+          const lineTwo = [
+            city,
+            state,
+            postalCode
+          ].filter(Boolean).join(" ");
+          const complete = [
+            lineOne,
+            city,
+            state,
+            postalCode,
+            country
+          ].filter(Boolean).join(", ");
+          const mapsUrl = "https://www.google.com/maps/search/" + "?api=1&query=" + encodeURIComponent(complete);
+          return {
+            visible: true,
+            street,
+            unit,
+            city,
+            state,
+            postalCode,
+            country,
+            lineOne,
+            lineTwo,
+            complete,
+            mapsUrl
+          };
         }
-
-        if (data.suffix) {
-          structuredData.honorificSuffix =
-            data.suffix;
-        }
-
-        if (data.hasTerritories) {
-          structuredData.areaServed =
-            data.territoryAreas.map(area => ({
+        /* =======================================================
+           RENDER METADATA
+           ======================================================= */
+        function renderMetadata(data) {
+          document.title = `${data.displayName} | ${data.company.name}`;
+          setMetaContent("meta-description", data.description);
+          setMetaContent("og-title", `${data.displayName} | ${data.company.name}`);
+          setMetaContent("og-description", data.description);
+          setMetaContent("og-image", data.company.logoUrl);
+          setMetaContent("og-url", data.pageUrl);
+          document.getElementById("canonical-url").setAttribute("href", data.pageUrl);
+          const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": data.displayName,
+            "givenName": data.firstName,
+            "familyName": data.lastName,
+            "jobTitle": data.jobTitle,
+            "worksFor": {
+              "@type": "Organization",
+              "name": data.company.name,
+              "url": data.company.website
+            },
+            "telephone": data.phone,
+            "email": data.email,
+            "url": data.pageUrl
+          };
+          if (data.middleName) {
+            structuredData.additionalName = data.middleName;
+          }
+          if (data.suffix) {
+            structuredData.honorificSuffix = data.suffix;
+          }
+          if (data.hasTerritories) {
+            structuredData.areaServed = data.territoryAreas.map(area => ({
               "@type": "AdministrativeArea",
               "name": area
             }));
+          }
+          if (data.address.visible) {
+            structuredData.address = {
+              "@type": "PostalAddress",
+              "streetAddress": data.address.lineOne,
+              "addressLocality": data.address.city,
+              "addressRegion": data.address.state,
+              "postalCode": data.address.postalCode,
+              "addressCountry": data.address.country
+            };
+          }
+          document.getElementById("structured-data").textContent = JSON.stringify(structuredData, null, 2);
         }
 
-        if (data.address.visible) {
-          structuredData.address = {
-            "@type": "PostalAddress",
-
-            "streetAddress":
-              data.address.lineOne,
-
-            "addressLocality":
-              data.address.city,
-
-            "addressRegion":
-              data.address.state,
-
-            "postalCode":
-              data.address.postalCode,
-
-            "addressCountry":
-              data.address.country
-          };
+        function setMetaContent(elementId, content) {
+          const element = document.getElementById(elementId);
+          if (!element) {
+            throw new Error(`Missing metadata element: ${elementId}`);
+          }
+          element.setAttribute("content", content);
+        }
+        /* =======================================================
+           RENDER VISIBLE CARD
+           ======================================================= */
+        function renderCard(data) {
+          setText("company-name", data.company.name);
+          setText("employee-name", data.displayName);
+          setText("employee-title", data.jobTitle);
+          setText("employee-territory", data.territoryDisplay);
+          const logo = document.getElementById("company-logo");
+          logo.src = data.company.localLogoPath;
+          logo.alt = `${data.company.name} logo`;
+          document.getElementById("business-card").setAttribute("aria-label", `${data.displayName} digital business card`);
+          renderPhone(data);
+          renderEmail(data);
+          renderWebsite(data);
+          renderAddress(data);
         }
 
-        document
-          .getElementById("structured-data")
-          .textContent =
-            JSON.stringify(
-              structuredData,
-              null,
-              2
-            );
-      }
-
-      function setMetaContent(
-        elementId,
-        content
-      ) {
-        const element =
-          document.getElementById(elementId);
-
-        if (!element) {
-          throw new Error(
-            `Missing metadata element: ${elementId}`
-          );
+        function renderPhone(data) {
+          const phoneRow = document.getElementById("phone-row");
+          const phoneLink = document.getElementById("employee-phone");
+          if (!data.phone) {
+            phoneRow.hidden = true;
+            return;
+          }
+          phoneRow.hidden = false;
+          phoneLink.href = `tel:${data.phone}`;
+          phoneLink.textContent = data.formattedPhone;
+          phoneLink.setAttribute("aria-label", `Call ${data.displayName}`);
         }
 
-        element.setAttribute(
-          "content",
-          content
-        );
-      }
-
-      /* =======================================================
-         RENDER VISIBLE CARD
-         ======================================================= */
-
-      function renderCard(data) {
-        setText(
-          "company-name",
-          data.company.name
-        );
-
-        setText(
-          "employee-name",
-          data.displayName
-        );
-
-        setText(
-          "employee-title",
-          data.jobTitle
-        );
-
-        setText(
-          "employee-territory",
-          data.territoryDisplay
-        );
-
-        const logo =
-          document.getElementById("company-logo");
-
-        logo.src =
-          data.company.localLogoPath;
-
-        logo.alt =
-          `${data.company.name} logo`;
-
-        document
-          .getElementById("business-card")
-          .setAttribute(
-            "aria-label",
-            `${data.displayName} digital business card`
-          );
-
-        renderPhone(data);
-        renderEmail(data);
-        renderWebsite(data);
-        renderAddress(data);
-      }
-
-      function renderPhone(data) {
-        const phoneRow =
-          document.getElementById("phone-row");
-
-        const phoneLink =
-          document.getElementById("employee-phone");
-
-        if (!data.phone) {
-          phoneRow.hidden = true;
-          return;
+        function renderEmail(data) {
+          const emailRow = document.getElementById("email-row");
+          const emailLink = document.getElementById("employee-email");
+          if (!data.email) {
+            emailRow.hidden = true;
+            return;
+          }
+          emailRow.hidden = false;
+          emailLink.href = `mailto:${data.email}`;
+          emailLink.textContent = data.email;
+          emailLink.setAttribute("aria-label", `Email ${data.displayName}`);
         }
 
-        phoneRow.hidden = false;
-
-        phoneLink.href =
-          `tel:${data.phone}`;
-
-        phoneLink.textContent =
-          data.formattedPhone;
-
-        phoneLink.setAttribute(
-          "aria-label",
-          `Call ${data.displayName}`
-        );
-      }
-
-      function renderEmail(data) {
-        const emailRow =
-          document.getElementById("email-row");
-
-        const emailLink =
-          document.getElementById("employee-email");
-
-        if (!data.email) {
-          emailRow.hidden = true;
-          return;
+        function renderWebsite(data) {
+          const websiteRow = document.getElementById("website-row");
+          const websiteLink = document.getElementById("company-website");
+          if (!data.company.website) {
+            websiteRow.hidden = true;
+            return;
+          }
+          websiteRow.hidden = false;
+          websiteLink.href = data.company.website;
+          websiteLink.textContent = getDisplayUrl(data.company.website);
+          websiteLink.setAttribute("aria-label", `Visit ${data.company.name} website`);
         }
 
-        emailRow.hidden = false;
-
-        emailLink.href =
-          `mailto:${data.email}`;
-
-        emailLink.textContent =
-          data.email;
-
-        emailLink.setAttribute(
-          "aria-label",
-          `Email ${data.displayName}`
-        );
-      }
-
-      function renderWebsite(data) {
-        const websiteRow =
-          document.getElementById("website-row");
-
-        const websiteLink =
-          document.getElementById("company-website");
-
-        if (!data.company.website) {
-          websiteRow.hidden = true;
-          return;
+        function renderAddress(data) {
+          const addressRow = document.getElementById("address-row");
+          const addressLink = document.getElementById("employee-address");
+          if (!data.address.visible) {
+            addressRow.hidden = true;
+            return;
+          }
+          addressRow.hidden = false;
+          addressLink.href = data.address.mapsUrl;
+          addressLink.replaceChildren(document.createTextNode(data.address.lineOne), document.createElement("br"), document.createTextNode(data.address.lineTwo));
+          addressLink.setAttribute("aria-label", `View ${data.company.name} location in maps`);
         }
 
-        websiteRow.hidden = false;
-
-        websiteLink.href =
-          data.company.website;
-
-        websiteLink.textContent =
-          getDisplayUrl(
-            data.company.website
-          );
-
-        websiteLink.setAttribute(
-          "aria-label",
-          `Visit ${data.company.name} website`
-        );
-      }
-
-      function renderAddress(data) {
-        const addressRow =
-          document.getElementById("address-row");
-
-        const addressLink =
-          document.getElementById("employee-address");
-
-        if (!data.address.visible) {
-          addressRow.hidden = true;
-          return;
+        function setText(elementId, value) {
+          const element = document.getElementById(elementId);
+          if (!element) {
+            throw new Error(`Missing page element: ${elementId}`);
+          }
+          element.textContent = value || "";
+        }
+        /* =======================================================
+           GENERATED VCARD
+           ======================================================= */
+        function prepareGeneratedVCard(data) {
+          const saveContact = document.getElementById("save-contact");
+          const vCard = createVCard(data);
+          const blob = new Blob(
+            [vCard], {
+              type: "text/vcard;charset=utf-8"
+            });
+          generatedVCardUrl = URL.createObjectURL(blob);
+          saveContact.href = generatedVCardUrl;
+          saveContact.download = data.vCardFilename;
+          saveContact.setAttribute("aria-label", `Save ${data.displayName} contact card`);
         }
 
-        addressRow.hidden = false;
-
-        addressLink.href =
-          data.address.mapsUrl;
-
-        addressLink.replaceChildren(
-          document.createTextNode(
-            data.address.lineOne
-          ),
-          document.createElement("br"),
-          document.createTextNode(
-            data.address.lineTwo
-          )
-        );
-
-        addressLink.setAttribute(
-          "aria-label",
-          `View ${data.company.name} location in maps`
-        );
-      }
-
-      function setText(
-        elementId,
-        value
-      ) {
-        const element =
-          document.getElementById(elementId);
-
-        if (!element) {
-          throw new Error(
-            `Missing page element: ${elementId}`
-          );
+        function createVCard(data) {
+          const lines = ["BEGIN:VCARD", "VERSION:3.0",
+            buildVCardNameLine(data), `FN:${escapeVCard(data.displayName)}`, `ORG:${escapeVCard(data.company.name)}`, `TITLE:${escapeVCard(data.jobTitle)}`, `TEL;TYPE=CELL,WORK:${escapeVCard(data.phone)}`, `EMAIL;TYPE=WORK:${escapeVCard(data.email)}`, `URL:${escapeVCard(data.company.website)}`
+          ];
+          if (data.address.visible) {
+            lines.push(buildVCardAddressLine(data.address));
+          }
+          lines.push("END:VCARD");
+          return lines.join("\r\n");
         }
 
-        element.textContent =
-          value || "";
-      }
+        function buildVCardNameLine(data) {
+          /*
+            VCard N field order:
 
-      /* =======================================================
-         GENERATED VCARD
-         ======================================================= */
-
-      function prepareGeneratedVCard(data) {
-        const saveContact =
-          document.getElementById("save-contact");
-
-        const vCard =
-          createVCard(data);
-
-        const blob =
-          new Blob(
-            [vCard],
-            {
-              type:
-                "text/vcard;charset=utf-8"
-            }
-          );
-
-        generatedVCardUrl =
-          URL.createObjectURL(blob);
-
-        saveContact.href =
-          generatedVCardUrl;
-
-        saveContact.download =
-          data.vCardFilename;
-
-        saveContact.setAttribute(
-          "aria-label",
-          `Save ${data.displayName} contact card`
-        );
-      }
-
-      function createVCard(data) {
-        const lines = [
-          "BEGIN:VCARD",
-          "VERSION:3.0",
-
-          buildVCardNameLine(data),
-
-          `FN:${escapeVCard(data.displayName)}`,
-
-          `ORG:${escapeVCard(data.company.name)}`,
-
-          `TITLE:${escapeVCard(data.jobTitle)}`,
-
-          `TEL;TYPE=CELL,WORK:${escapeVCard(data.phone)}`,
-
-          `EMAIL;TYPE=WORK:${escapeVCard(data.email)}`,
-
-          `URL:${escapeVCard(data.company.website)}`
-        ];
-
-        if (data.address.visible) {
-          lines.push(
-            buildVCardAddressLine(data.address)
-          );
+            Family;
+            Given;
+            Additional;
+            Prefix;
+            Suffix
+          */
+          const suffixParts = [
+            data.suffix, ...data.credentials
+          ].filter(Boolean);
+          return ["N:",
+            escapeVCard(data.lastName), ";",
+            escapeVCard(data.firstName), ";",
+            escapeVCard(data.middleName), ";", "", ";",
+            escapeVCard(suffixParts.join(", "))
+          ].join("");
         }
 
-        lines.push("END:VCARD");
+        function buildVCardAddressLine(address) {
+          /*
+            VCard ADR field order:
 
-        return lines.join("\r\n");
-      }
-
-      function buildVCardNameLine(data) {
-        /*
-          VCard N field order:
-
-          Family;
-          Given;
-          Additional;
-          Prefix;
-          Suffix
-        */
-        const suffixParts = [
-          data.suffix,
-          ...data.credentials
-        ].filter(Boolean);
-
-        return [
-          "N:",
-          escapeVCard(data.lastName),
-          ";",
-          escapeVCard(data.firstName),
-          ";",
-          escapeVCard(data.middleName),
-          ";",
-          "",
-          ";",
-          escapeVCard(
-            suffixParts.join(", ")
-          )
-        ].join("");
-      }
-
-      function buildVCardAddressLine(address) {
-        /*
-          VCard ADR field order:
-
-          PO Box;
-          Extended Address;
-          Street;
-          City;
-          State;
-          Postal Code;
-          Country
-        */
-        return [
-          "ADR;TYPE=WORK:",
-          "",
-          ";",
-          escapeVCard(address.unit),
-          ";",
-          escapeVCard(address.street),
-          ";",
-          escapeVCard(address.city),
-          ";",
-          escapeVCard(address.state),
-          ";",
-          escapeVCard(address.postalCode),
-          ";",
-          escapeVCard(address.country)
-        ].join("");
-      }
-
-      function escapeVCard(value = "") {
-        return String(value)
-          .replace(/\\/g, "\\\\")
-          .replace(/\r?\n/g, "\\n")
-          .replace(/;/g, "\\;")
-          .replace(/,/g, "\\,");
-      }
-
-      /* =======================================================
-         RANDOM CORE VALUE
-         ======================================================= */
-
-function renderRandomCoreValue(values) {
-  if (
-    !Array.isArray(values) ||
-    values.length === 0
-  ) {
-    return;
-  }
-
-  const coreValueElement =
-    document.getElementById("core-value");
-
-  const previousValue =
-  sessionStorage.getItem("previousCoreValue");
-
-const availableValues =
-  values.filter(value => value !== previousValue);
-
-const selectedValue =
-  availableValues[
-    Math.floor(Math.random() * availableValues.length)
-  ];
-
-sessionStorage.setItem(
-  "previousCoreValue",
-  selectedValue
-);
-
-  coreValueElement.textContent =
-    selectedValue;
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      coreValueElement
-        .classList
-        .add("show");
-    });
-  });
-}
-
-      /* =======================================================
-         CARD REVEAL AND ERROR HANDLING
-         ======================================================= */
-
-      function revealCard() {
-        const card =
-          document.getElementById("business-card");
-
-        requestAnimationFrame(() => {
-          card.classList.add("ready");
-        });
-      }
-
-      function showConfigurationError(error) {
-        console.error(
-          "Employee card configuration error:",
-          error
-        );
-
-        const card =
-          document.getElementById("business-card");
-
-        const errorElement =
-          document.getElementById("error-message");
-
-        card.hidden = true;
-
-        errorElement.innerHTML = "";
-
-        const heading =
-          document.createElement("strong");
-
-        heading.textContent =
-          "Employee card configuration error";
-
-        const message =
-          document.createElement("span");
-
-        message.textContent =
-          error instanceof Error
-            ? error.message
-            : String(error);
-
-        errorElement.append(
-          heading,
-          message
-        );
-
-        errorElement
-          .classList
-          .add("show");
-      }
-
-      /* =======================================================
-         HELPER FUNCTIONS
-         ======================================================= */
-
-      function cleanText(value) {
-        return String(value || "")
-          .trim()
-          .replace(/\s+/g, " ");
-      }
-
-      function createSlug(value) {
-        const slug =
-          String(value || "")
-            .normalize("NFD")
-            .replace(
-              /[\u0300-\u036f]/g,
-              ""
-            )
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "")
-            .trim();
-
-        if (!slug) {
-          throw new Error(
-            "A slug could not be generated from the employee name."
-          );
+            PO Box;
+            Extended Address;
+            Street;
+            City;
+            State;
+            Postal Code;
+            Country
+          */
+          return ["ADR;TYPE=WORK:", "", ";",
+            escapeVCard(address.unit), ";",
+            escapeVCard(address.street), ";",
+            escapeVCard(address.city), ";",
+            escapeVCard(address.state), ";",
+            escapeVCard(address.postalCode), ";",
+            escapeVCard(address.country)
+          ].join("");
         }
 
-        return slug;
-      }
-
-      function formatReadableList(items) {
-        if (!items.length) {
-          return "";
+        function escapeVCard(value = "") {
+          return String(value).replace(/\\/g, "\\\\").replace(/\r?\n/g, "\\n").replace(/;/g, "\\;").replace(/,/g, "\\,");
+        }
+        /* =======================================================
+           RANDOM CORE VALUE
+           ======================================================= */
+        function renderRandomCoreValue(values) {
+          if (!Array.isArray(values) || values.length === 0) {
+            return;
+          }
+          const coreValueElement = document.getElementById("core-value");
+          const previousValue = sessionStorage.getItem("previousCoreValue");
+          const availableValues = values.filter(value => value !== previousValue);
+          const selectedValue = availableValues[Math.floor(Math.random() * availableValues.length)];
+          sessionStorage.setItem("previousCoreValue", selectedValue);
+          coreValueElement.textContent = selectedValue;
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              coreValueElement.classList.add("show");
+            });
+          });
+        }
+        /* =======================================================
+           CARD REVEAL AND ERROR HANDLING
+           ======================================================= */
+        function revealCard() {
+          const card = document.getElementById("business-card");
+          requestAnimationFrame(() => {
+            card.classList.add("ready");
+          });
         }
 
-        if (
-          typeof Intl !== "undefined" &&
-          typeof Intl.ListFormat === "function"
-        ) {
-          const formatter =
-            new Intl.ListFormat(
-              "en-US",
-              {
-                style: "long",
-                type: "conjunction"
-              }
-            );
-
-          return formatter.format(items);
+        function showConfigurationError(error) {
+          console.error("Employee card configuration error:", error);
+          const card = document.getElementById("business-card");
+          const errorElement = document.getElementById("error-message");
+          card.hidden = true;
+          errorElement.innerHTML = "";
+          const heading = document.createElement("strong");
+          heading.textContent = "Employee card configuration error";
+          const message = document.createElement("span");
+          message.textContent = error instanceof Error ? error.message : String(error);
+          errorElement.append(heading, message);
+          errorElement.classList.add("show");
+        }
+        /* =======================================================
+           HELPER FUNCTIONS
+           ======================================================= */
+        function cleanText(value) {
+          return String(value || "").trim().replace(/\s+/g, " ");
         }
 
-        /*
-          Fallback for older browsers.
-        */
-        if (items.length === 1) {
-          return items[0];
+        function createSlug(value) {
+          const slug = String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "").trim();
+          if (!slug) {
+            throw new Error("A slug could not be generated from the employee name.");
+          }
+          return slug;
         }
 
-        if (items.length === 2) {
-          return `${items[0]} and ${items[1]}`;
+        function formatReadableList(items) {
+          if (!items.length) {
+            return "";
+          }
+          if (typeof Intl !== "undefined" && typeof Intl.ListFormat === "function") {
+            const formatter = new Intl.ListFormat("en-US", {
+              style: "long",
+              type: "conjunction"
+            });
+            return formatter.format(items);
+          }
+          /*
+            Fallback for older browsers.
+          */
+          if (items.length === 1) {
+            return items[0];
+          }
+          if (items.length === 2) {
+            return `${items[0]} and ${items[1]}`;
+          }
+          return (items.slice(0, -1).join(", ") + `, and ${items[items.length - 1]}`);
         }
 
-        return (
-          items.slice(0, -1).join(", ") +
-          `, and ${items[items.length - 1]}`
-        );
-      }
-
-      function formatPhoneNumber(phone) {
-        const digits =
-          String(phone)
-            .replace(/\D/g, "");
-
-        const nationalNumber =
-          digits.length === 11 &&
-          digits.startsWith("1")
-            ? digits.slice(1)
-            : digits;
-
-        if (nationalNumber.length === 10) {
-          return (
-            `${nationalNumber.slice(0, 3)}-` +
-            `${nationalNumber.slice(3, 6)}-` +
-            nationalNumber.slice(6)
-          );
+        function formatPhoneNumber(phone) {
+          const digits = String(phone).replace(/\D/g, "");
+          const nationalNumber = digits.length === 11 && digits.startsWith("1") ? digits.slice(1) : digits;
+          if (nationalNumber.length === 10) {
+            return (`${nationalNumber.slice(0, 3)}-` + `${nationalNumber.slice(3, 6)}-` + nationalNumber.slice(6));
+          }
+          return phone;
         }
 
-        return phone;
-      }
-
-      function getDisplayUrl(url) {
-        try {
-          const parsedUrl =
-            new URL(url);
-
-          return parsedUrl.hostname
-            .replace(/^www\./, "www.");
-        } catch {
-          return url;
+        function getDisplayUrl(url) {
+          try {
+            const parsedUrl = new URL(url);
+            return parsedUrl.hostname.replace(/^www\./, "www.");
+          } catch {
+            return url;
+          }
         }
-      }
-    })();
-  </script>
-
-</body>
-
+      })();
+    </script>
+  </body>
 </html>
