@@ -812,7 +812,7 @@
         renderMetadata(DATA);
         renderCard(DATA);
         prepareGeneratedVCard(DATA);
-        renderDailyCoreValue(CORE_VALUES);
+        renderRandomCoreValue(CORE_VALUES);
         revealCard();
 
       } catch (error) {
@@ -1709,10 +1709,10 @@
       }
 
       /* =======================================================
-         CORE VALUE
+         RANDOM CORE VALUE
          ======================================================= */
 
-      function renderDailyCoreValue(values) {
+      function renderRandomCoreValue(values) {
         if (
           !Array.isArray(values) ||
           values.length === 0
@@ -1724,10 +1724,7 @@
           document.getElementById("core-value");
 
         /*
-          One core value per calendar day.
-
-          This prevents the value from changing every time the
-          page is refreshed.
+          Randomly select a core value each time the page loads.
         */
         const today =
           new Date();
