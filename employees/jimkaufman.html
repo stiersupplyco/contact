@@ -1625,15 +1625,6 @@
           );
         }
 
-        if (data.hasTerritories) {
-          lines.push(
-            "NOTE:" +
-            escapeVCard(
-              `Markets: ${data.readableTerritories}.`
-            )
-          );
-        }
-
         lines.push("END:VCARD");
 
         return lines.join("\r\n");
